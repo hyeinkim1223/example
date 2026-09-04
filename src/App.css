@@ -1,38 +1,92 @@
-.App {
-  text-align: center;
+/* =========================================================
+   [직접 만지는 곳] flex-grow, flex-shrink, flex-basis 테스트
+   ========================================================= */
+
+/* 1번 파란 박스 */
+.box-1 {
+    background-color: #3b82f6;
+    flex-grow: 0;
+    flex-shrink: 1;
+    flex-basis: 150px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* 2번 초록 박스 (기본적으로 여백 챙겨 먹게 설정) */
+.box-2 {
+    background-color: #10b981;
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 150px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+/* 3번 주황 박스 (기본적으로 찌그러짐 방지 설정) */
+.box-3 {
+    background-color: #f59e0b;
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: 150px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+/* =========================================================
+   Flex 부모 컨테이너 설정
+   ========================================================= */
+.flex-container {
+    display: flex;
+    /* 줄바꿈 테스트를 하려면 아래 주석을 풀어보세요 */
+    /* flex-wrap: wrap; */
+
+    /* [테스트]: 400px(비좁을 때 shrink 확인) / 800px(여유 있을 때 grow 확인) */
+    width: 600px;
+    min-height: 120px;
+    background-color: #e2e8f0;
+    border: 2px dashed #94a3b8;
+    border-radius: 8px;
+    padding: 12px;
+    gap: 12px;
 }
 
-.App-link {
-  color: #61dafb;
+/* =========================================================
+   공통 레이아웃 & 텍스트 스타일링
+   ========================================================= */
+.container {
+    max-width: 800px;
+    margin: 40px auto;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    color: #1e293b;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.guide {
+    font-size: 14px;
+    color: #64748b;
+    margin: 8px 0 24px 0;
+}
+
+.parent-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    border-radius: 6px;
+    min-height: 90px;
+    padding: 8px;
+    text-align: center;
+    transition: all 0.2s ease-out;
+}
+
+.box .title {
+    font-weight: bold;
+    font-size: 15px;
+    margin-bottom: 4px;
+}
+
+.box .css-text {
+    font-size: 12px;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 2px 6px;
+    border-radius: 4px;
 }
