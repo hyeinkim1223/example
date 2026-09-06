@@ -1,0 +1,143 @@
+@import "https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap";html {
+    color: #424242;
+    background: #fff
+}
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+body {
+    line-height: 1;
+}
+ol, ul {
+    list-style: none;
+}
+blockquote, q {
+    quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content: '';
+    content: none;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+body {
+    font-size: 1rem;
+}
+
+
+.layout{
+    width: 1256px;
+    margin: 0 auto;
+}
+header {
+    width: 100%; 
+    max-height: 80px;
+    border-bottom: 0.5px solid #c2bfbf;
+}
+.headerInner {
+    max-width: 1256px;      
+    margin: 0 auto;
+    padding: 20px 60px;
+    box-sizing: border-box;
+}
+.sticky_container {
+    display: flex;
+    align-items: center;
+}
+.logoSection img {
+    width: 120px;
+    align-items: center;
+}
+.logoSection {
+    flex: 1;
+}
+.menuSection {
+    flex: 2;
+    display: flex;
+    gap: 20px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+}
+.menuSection div:hover {
+    color:#00A1FF;
+}
+.searchSection {
+    flex: 5;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+.search {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-right: auto;
+}
+.search input {
+    border: 0;
+    padding: 10px;
+    background-color: #F5F5F5;
+    border-radius: 20px;
+    width: 300px;
+}
+.search input:focus {
+    outline: none;
+}
+.cartIcon {
+    width: 22px;
+}
+.lgoinJoin {
+    width: auto;
+    display: flex;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+.lgoinJoin div {
+    padding: 0px 10px;
+}
+.lgoinJoin div:not(:last-child)::after {
+    content: "|";
+    margin-left: 20px;
+    color: #ccc;
+}
+.lgoinJoin div:hover {
+    color: #00A1FF;
+}
+.writeBtn {
+    padding: 10px 15px;
+    background-color: #00A1FF;
+    color: white;
+    border-radius: 5px;
+    border: 0;
+    font-weight: 500;
+}
+.writeBtn:hover {
+    background-color: #008bdc;
+}
