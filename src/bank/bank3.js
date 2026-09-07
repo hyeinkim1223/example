@@ -54,10 +54,35 @@ const getTotalBalance = (accounts) => {
 console.log(`전체 잔액 : ${getTotalBalance(accounts).toLocaleString()}`);
 
 // 4. 평균 금액을 반환하는 함수
-const getAverageBalance = (accounts) => {
-  return getTotalBalance(accounts) / accounts.length;
-};
+const getAverageBalance = (accounts) => getTotalBalance(accounts) / accounts.length;
 
 console.log(`평균 잔액 : ${getAverageBalance(accounts).toLocaleString()}`);
 
-// 5. 잔액 100만 원 이상 계좌의 예금주 이름을 잔액 높은 순으로 반환 (filter -> sort -> map 체이닝)
+// 5.sortByBalance(accounts, desc = true) : 잔액순 정렬한 새 배열 반환. 원본 배열은 바뀌면 안 됩니다. (sort)
+const sortByBalance = (accounts, desc = true) => {
+  const newAccounts = [...accounts];
+  return newAccounts.sort((a, b) => {
+    return b.balance - a.balance;
+  });
+};
+
+console.log('금액 정렬 :', sortByBalance(accounts, true));
+
+
+
+// 6. 잔액 100만 원 이상 계좌의 예금주 이름을 잔액 높은 순으로 반환 (filter -> sort -> map 체이닝)
+const getVipNames = (accounts) => {
+  return accounts
+  .filter(({balance})=> balance >= 1000000)
+  .sort((a,b) => b.balance - a.balance)
+  .map(({owner})=>owner);
+};
+console.log(`VIP(100만↑) : ${getVipNames(accounts)}`)
+
+
+// 7. every를 사용해 모든 계좌 잔액이 0 이상인지 검사하는 isAllValid(accounts)도 만드세요.
+const isAllValid = (accounts) => {
+  return accounts.every(({balance}) => balance >= 0);
+}
+
+console.log(`모두 유효? ${isAllValid(accounts)}`);
