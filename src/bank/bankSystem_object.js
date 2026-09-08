@@ -200,8 +200,9 @@ function sortByBalanceHandler() {
 }
 
 function exitHandler() {
-  console.log('0. 종료');
-  getTotalBalance(account);
+  console.log('프로그램을 종료합니다.');
+  // console.log('계좌 : ', accounts.length,'개' ,'총 잔액 : ', getTotalBalance(accounts), '원');
+  console.log(`계좌 : ${accounts.length} 개, 총 잔액 : ${getTotalBalance(accounts)}원`);
   process.exit(); //Node.js에서 현재 실행 중인 프로세스를 즉시 종료하는 함수
 }
 
@@ -224,5 +225,7 @@ while (true) {
   // ?. 를 쓰는 이유는 undefined 일 수도 있다 라는 뜻 / 안쓰면 에러
   // 자바스크립트 문법상 ?. 자체가 한 세트인 기호
   // (); ()는 우리가 늘 쓰는 "함수 호출(실행)"
-  menu[num]?.();
+  if(!menu[num]?.()) {
+    console.log('없는 메뉴 번호입니다. 확인 후 다시 입력하세요.');
+  }
 }
