@@ -13,7 +13,8 @@ const prompt = require('prompt-sync')();
 // }
 
 // after
-const findAccount = (accounts, accountNo) => accounts.find((account) => account.accountNo === accountNo);
+const findAccount = (accounts, accountNo) =>
+  accounts.find((account) => account.accountNo === accountNo);
 
 function createAccount() {
   const name = prompt('예금주 이름?');
@@ -30,7 +31,12 @@ function createAccount() {
   return { owner, accountNo, balance, createdAt };
 }
 
-const printAccount = ({ owner: { name, phone }, accountNo: no, balance, type = '입출금' }) => {
+const printAccount = ({
+  owner: { name, phone },
+  accountNo: no,
+  balance,
+  type = '입출금',
+}) => {
   accounts.forEach((account, index) => {
     console.log(`
         [계좌 정보]
@@ -57,7 +63,9 @@ while (true) {
   if (q === 'y') {
     const newAccount = createAccount();
     // 계좌를 추가하기 전에 같은 계좌번호가 이미 있으면 거부합니다. (반드시 some 사용)
-    if (accounts.some((account) => account.accountNo === newAccount.accountNo)) {
+    if (
+      accounts.some((account) => account.accountNo === newAccount.accountNo)
+    ) {
       console.log('이미 존재하는 계좌번호입니다.');
       continue;
     }
@@ -97,7 +105,9 @@ while (true) {
 
 console.log(`총 ${accounts.length}개 계좌`);
 accounts.forEach(({ owner: { name, phone }, accountNo, balance }, index) => {
-  console.log(`${index + 1}. ${name} (${phone}) / ${accountNo} / ${balance.toLocaleString()}원`);
+  console.log(
+    `${index + 1}. ${name} (${phone}) / ${accountNo} / ${balance.toLocaleString()}원`,
+  );
 });
 
 console.log('------------------------------------------------');

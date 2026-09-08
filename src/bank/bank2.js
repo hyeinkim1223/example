@@ -1,4 +1,5 @@
-const prompt = require('prompt-sync')();
+import promptSync from 'prompt-sync';
+const prompt = promptSync();
 
 // 예금주, 계좌번호, 입금액을 받아 유효성 검사후 객체를 생성하는 함수
 function createAccount() {
@@ -21,7 +22,7 @@ const findAccount = (accounts, accountNo) => {
   return accounts.find((account) => account.accountNo === accountNo);
 };
 
-const PrintAccount = ({
+const printAccount = ({
   owner: { name, phone },
   accountNo: no,
   balance,
@@ -67,7 +68,7 @@ accounts.forEach(({ owner: { name, phone }, accountNo, balance }, index) =>
 );
 
 accounts.forEach((account) => {
-  PrintAccount(account);
+  printAccount(account);
 });
 
 // 개설일 : ${new Date().toISOString().slice(0, 10)}
