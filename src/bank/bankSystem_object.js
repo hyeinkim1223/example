@@ -177,6 +177,32 @@ function getLastN(account, n) {
     .join(', ');
 }
 
+// createSecureAccount(owner, initial) : 내부에 let balance를 두고, { owner, deposit, withdraw, getBalance } 객체를 반환
+function createSecureAccount(owner, initial) {
+  let balance = initial; // 외부에서 직접 접근할 수 없음, 은닉화
+
+  return {
+    owner,
+    deposit: (amount) => (balance += amount),
+    withdraw: (amount) => {
+      if (amount >= balance) {
+        return false; // 잔액 부족
+      }
+      balance -= amount; // 돈 깎기
+      return true; // 성공 시
+    },
+    getBalance: () => balance,
+  };
+}
+
+// const acc = createSecureAccount('김철수', 50000);
+// acc.deposit(10000);
+// console.log(acc.getBalance()); // 60000
+// console.log(acc.balance); // undefined (직접 접근 불가!)
+// console.log(acc.withdraw(100000)); // false (잔액 부족)
+// console.log(acc.withdraw(20000)); // true (출금 성공)
+// console.log(acc.getBalance()); // 40000
+
 // ========================================= Handler =========================================
 
 function createHandler() {
