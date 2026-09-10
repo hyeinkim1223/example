@@ -1,0 +1,29 @@
+.statCard {
+    width: 282px;
+    height: 120px;
+    border-radius: 12px;
+    border: 1px solid #E5E7EB;
+    background-color: white;
+    padding: 20px 24px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    justify-content: space-between;
+}
+.statCardTitle {
+    font-size: 13px;
+    font-weight: 400;
+    color: #6B7280;
+}
+/* 기본컬러 : #111827 / 총 계좌수 컬러 : #2563EB / VIP 컬러 : #D97706 */
+.statCardValue {
+    font-size: 28px;
+    font-weight: 700;
+    /*color: #2563EB;*/
+}
+.statCardSub {
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: #6B7280;
+}

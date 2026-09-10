@@ -1,0 +1,19 @@
+.titleArea {
+    margin-top: 32px;
+}
+.title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+.titleArea > span {
+    font-size: 0.875rem;
+    color: #6B7280;
+}
+.statsGrid {
+    margin: 24px 0;
+}
+.statsGrid {
+    display: flex;
+    justify-content: space-between;
+}
