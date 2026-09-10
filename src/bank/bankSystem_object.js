@@ -177,7 +177,8 @@ function getLastN(account, n) {
     .join(', ');
 }
 
-// createSecureAccount(owner, initial) : 내부에 let balance를 두고, { owner, deposit, withdraw, getBalance } 객체를 반환
+// createSecureAccount(owner, initial) : 내부에 let balance를 두고,
+// { owner, deposit, withdraw, getBalance } 객체를 반환 - 클로저
 function createSecureAccount(owner, initial) {
   let balance = initial; // 외부에서 직접 접근할 수 없음, 은닉화
 
