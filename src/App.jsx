@@ -23,11 +23,11 @@ function App() {
       <section className="container">
         <StatsGrid />
         <main className="layout">
-          <AccountForm setAccounts={setAccounts} />
+          <AccountForm accounts={accounts} setAccounts={setAccounts} />
           <TransferForm accounts={accounts} setAccounts={setAccounts} />
-          <AccountTable />
+          {/* <AccountTable />
           <HistoryList />
-          <NotifyLog />
+          <NotifyLog /> */}
         </main>
       </section>
 

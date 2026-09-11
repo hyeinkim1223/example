@@ -4,10 +4,12 @@ import Button from '../Form/Button';
 import Toast from '../Toast';
 import { useCallback, useState } from 'react';
 
+// accounts 배열 계좌번호와 입력한 계좌번호의 일치 여부 함수
 const findAccount = (accounts, accountNo) => {
   return accounts.find((account) => account.accountNo === accountNo);
 };
 
+// ({ accounts, setAccounts })는 구조분해 할당으로 가져온 값
 export default function TransferForm({ accounts, setAccounts }) {
   const [accountNo, setAccountNo] = useState();
   const [amount, setAmount] = useState();
@@ -21,33 +23,39 @@ export default function TransferForm({ accounts, setAccounts }) {
   }, []);
 
   const depositHandler = useCallback(() => {
+    // target.value 로 받아온 값은 항상 문자열이기 때문에 Number() 로 변환
     const depositAmount = Number(amount);
+    const findByAccountNo = findAccount(accounts, accountNo);
 
+    // 유효성 검사 - 문자열 및 0 이상의 값
     if (depositAmount <= 0 || isNaN(depositAmount)) {
       alert('0원 이상 입력 또는 문자열은 입력하실 수 없습니다.');
       return;
     }
-
-    const findByAccountNo = findAccount(accounts, accountNo);
-
+    // 유효성 검사 - 계좌번호 존재 여부
     if (findByAccountNo === undefined) {
       alert('존재하지 않는 계좌번호 입니다.');
       return;
     }
 
+    // props 구조분해할당으로 accounts의 상태 변수
     setAccounts((prev) => {
+      // 현재 accounts 값을 prev로 전달해줌 (accounts 배열 전체)
       return prev.map((account) => {
+        // prev 배열 안의 계좌 객체를 하나씩 순서대로 꺼내옴
         if (account === findByAccountNo) {
+          // account 배열 안 요소 중, 아까 find로 찾아둔 그 계좌 객체와 동일한 참조인지 확인
           return {
-            ...account,
-            balance: Number(account.balance) + depositAmount,
+            // 해당 객체를 반환
+            ...account, // 이전 값
+            balance: Number(account.balance) + depositAmount, // 그중 balance의 값만 depositAmount 를 더해 반환
           };
         }
-        return account;
+        return account; // 입금 대상 계좌가 아니면(=원본과 다른 참조면) 변경 없이 그대로 리턴
       });
     });
     alert(`입금 성공! 현재 잔액이 반영되었습니다.`);
-  }, [accounts, accountNo, amount, setAccounts]);
+  }, [accounts, accountNo, amount, setAccounts]); // 의존성 배열: 이 배열 안의 값 중 하나라도 바뀌면, depositHandler 함수를 새로 만든다(재생성한다)
 
   const withdrawHandler = useCallback(() => {});
 
