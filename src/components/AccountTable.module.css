@@ -1,0 +1,20 @@
+.container {
+    width: 776px;
+    height: 398px;
+    background-color: white;
+    border: 1px solid #E5E7EB;
+    padding: 24px;
+    border-radius: 12px;
+}
+.titleBox {
+    margin-bottom: 16px;
+}
+.titleBox > span {
+    font-size: 12px;
+    color: #6B7280;
+}
+.title {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 2px;
+}

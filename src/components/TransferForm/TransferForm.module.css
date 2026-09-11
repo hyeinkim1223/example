@@ -1,0 +1,37 @@
+.container {
+    width: 400px;
+    height: 362px;
+    box-sizing: border-box;
+    border-radius: 12px;
+    border: 1px solid #E5E7EB;
+    background-color: white;
+    padding: 24px;
+}
+.titleBox {
+    margin-bottom: 16px;
+}
+.titleBox > span {
+    font-size: 12px;
+    color: #6B7280;
+}
+.title {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 2px;
+}
+.inputBox {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+.container > span {
+    font-size: 12px;
+    color: #6B7280;
+    display: block;
+    margin: 16px 0;
+}
+.buttonBox {
+    margin: 16px 0;
+    display: flex;
+    gap: 12px;
+}

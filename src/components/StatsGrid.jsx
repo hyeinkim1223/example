@@ -1,5 +1,5 @@
 import styles from './StatsGrid.module.css';
-import StatCard from './StatCard';
+import StatCard from './Card/StatCard';
 
 export default function StatsGrid() {
   return (
