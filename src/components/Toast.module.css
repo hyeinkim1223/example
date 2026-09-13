@@ -1,29 +1,35 @@
 .status {
-    display: flex;
-    gap: 10px;
-    background-color: #1F2937;
-    align-items: center;
-    padding: 12px 16px;
-    border-radius: 12px;
+  display: flex;
+  gap: 10px;
+  background-color: #1f2937;
+  align-items: center;
+  padding: 12px 16px;
+  border-radius: 12px;
 }
 .statusIcon {
-    font-size: 12px;
-    font-weight: 700;
-    background-color: #16A34A;
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    text-align: center;
-    line-height: 24px;
-    color: white;
+  font-size: 12px;
+  font-weight: 700;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 24px;
+  color: white;
+}
+.success {
+  background-color: #16a34a;
 }
 
-.StatusMessage {
-    color: white;
-    font-size: 14px;
-    font-weight: 500;
+.fail {
+  background-color: #dc2626;
+}
+.statusMessage {
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
 }
 .closeIcon {
-    font-size: 14px;
-    color: #9CA3AF;
+  font-size: 14px;
+  color: #9ca3af;
+  cursor: pointer;
 }

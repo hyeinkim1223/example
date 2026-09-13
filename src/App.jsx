@@ -25,9 +25,9 @@ function App() {
         <main className="layout">
           <AccountForm accounts={accounts} setAccounts={setAccounts} />
           <TransferForm accounts={accounts} setAccounts={setAccounts} />
-          {/* <AccountTable />
+          <AccountTable />
           <HistoryList />
-          <NotifyLog /> */}
+          <NotifyLog />
         </main>
       </section>
 

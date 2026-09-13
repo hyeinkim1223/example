@@ -1,14 +1,21 @@
 import styles from './Toast.module.css';
 
-export default function Toast() {
+export default function Toast({ message, type, onClose }) {
+  // 기본값으로 success 처리
+  const isSuccess = type === 'success';
+
   return (
     <>
       <div className={styles.status}>
-        <div className={styles.statusIcon}>✔</div>
-        <div className={styles.StatusMessage}>
-          거래 결과 메시지가 표시됩니다.
+        <div
+          className={`${styles.statusIcon} ${isSuccess ? styles.success : styles.fail}`}
+        >
+          {isSuccess ? '✔' : '!'}
         </div>
-        <div className={styles.closeIcon}>✕</div>
+        <div className={styles.statusMessage}>{message}</div>
+        <div className={styles.closeIcon} onClick={onClose}>
+          ✕
+        </div>
       </div>
     </>
   );

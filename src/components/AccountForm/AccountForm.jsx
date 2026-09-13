@@ -6,20 +6,11 @@ export default function AccountForm({ accounts, setAccounts }) {
   const [owner, setOwner] = useState('');
   const [accountNo, setAccountNo] = useState('');
   const [balance, setBalance] = useState('');
-  const [touched, setTouched] = useState({
-    owner: false,
-    accountNo: false,
-    balance: false,
-  });
 
   // 예금주 이름의 상태 확인 함수
   // useEffect(() => {
   //   console.log(owner);
   // }, [owner]);
-
-  const blurHandler = (field) => {
-    setTouched((prev) => ({ ...prev, [field]: true }));
-  };
 
   const ownerChangeHandler = useCallback(({ target }) => {
     setOwner(target.value);
@@ -60,7 +51,6 @@ export default function AccountForm({ accounts, setAccounts }) {
     setOwner('');
     setAccountNo('');
     setBalance('');
-    setTouched({ owner: false, accountNo: false, balance: false }); // 초기화
   }, [accounts, owner, accountNo, balance, setAccounts]);
 
   return (
@@ -75,25 +65,16 @@ export default function AccountForm({ accounts, setAccounts }) {
             label={'예금주 이름'}
             value={owner}
             onChange={ownerChangeHandler}
-            onBlur={() => blurHandler('owner')}
-            isError={touched.owner && !owner.trim()}
-            errorMessage={'예금주 이름을 입력해주세요.'}
           />
           <Input
             label={'계좌번호'}
             value={accountNo}
             onChange={accountNoChangeHandler}
-            onBlur={() => blurHandler('accountNo')}
-            isError={touched.accountNo && !accountNo.trim()}
-            errorMessage={'계좌번호를 입력해주세요.'}
           />
           <Input
             label={'초기 입금액'}
             value={balance}
             onChange={balanceChangeHandler}
-            onBlur={() => blurHandler('balance')}
-            isError={touched.balance && !balance.trim()}
-            errorMessage={'입금액을 입력해주세요.'}
           />
         </div>
         <span>ⓘ 숫자가 아니거나 0 미만이면 잔액은 0원으로 개설됩니다.</span>

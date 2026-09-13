@@ -1,25 +1,15 @@
 import styles from './Input.module.css';
 
-export default function Input({
-  label,
-  value,
-  onChange,
-  isError,
-  onBlur,
-  errorMessage,
-  placeholder,
-}) {
+export default function Input({ label, value, onChange }) {
   return (
     <>
       <div className={styles.container}>
         <div className={styles.label}>{label}</div>
         <input
           type="text"
-          className={`${styles.value} ${isError ? styles.danger : ''}`}
+          className={styles.value}
           value={value}
           onChange={onChange}
-          onBlur={onBlur}
-          placeholder={isError ? errorMessage : placeholder}
         />
       </div>
     </>

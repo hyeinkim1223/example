@@ -13,6 +13,16 @@ const findAccount = (accounts, accountNo) => {
 export default function TransferForm({ accounts, setAccounts }) {
   const [accountNo, setAccountNo] = useState();
   const [amount, setAmount] = useState();
+  const [toast, setToast] = useState({
+    isVisible: false,
+    type: 'success',
+    message: '',
+  });
+  const { isVisible, type, message } = toast;
+
+  const closeToastHandler = () => {
+    setToast((prev) => ({ ...prev, isVisible: false }));
+  };
 
   const accountNoChangeHandler = useCallback(({ target }) => {
     setAccountNo(target.value);
@@ -29,12 +39,20 @@ export default function TransferForm({ accounts, setAccounts }) {
 
     // 유효성 검사 - 문자열 및 0 이상의 값
     if (depositAmount <= 0 || isNaN(depositAmount)) {
-      alert('0원 이상 입력 또는 문자열은 입력하실 수 없습니다.');
+      setToast({
+        isVisible: true,
+        type: 'fail',
+        message: '0원 이상 입력, 문자열은 입력할 수 없습니다',
+      });
       return;
     }
     // 유효성 검사 - 계좌번호 존재 여부
     if (findByAccountNo === undefined) {
-      alert('존재하지 않는 계좌번호 입니다.');
+      setToast({
+        isVisible: true,
+        type: 'fail',
+        message: '존재하지 않는 계좌번호 입니다.',
+      });
       return;
     }
 
@@ -54,10 +72,63 @@ export default function TransferForm({ accounts, setAccounts }) {
         return account; // 입금 대상 계좌가 아니면(=원본과 다른 참조면) 변경 없이 그대로 리턴
       });
     });
-    alert(`입금 성공! 현재 잔액이 반영되었습니다.`);
+    setToast({
+      isVisible: true,
+      type: 'success',
+      message: `입금 성공! 현재 잔액이 반영되었습니다.`,
+    });
+    setAccountNo('');
+    setAmount('');
   }, [accounts, accountNo, amount, setAccounts]); // 의존성 배열: 이 배열 안의 값 중 하나라도 바뀌면, depositHandler 함수를 새로 만든다(재생성한다)
 
-  const withdrawHandler = useCallback(() => {});
+  const withdrawHandler = useCallback(() => {
+    const withdrawAmount = Number(amount);
+    const findByAccountNo = findAccount(accounts, accountNo);
+
+    // 유효성 검사 - 계좌번호 존재 여부
+    if (findByAccountNo === undefined) {
+      setToast({
+        isVisible: true,
+        type: 'fail',
+        message: '존재하지 않는 계좌번호 입니다.',
+      });
+      return;
+    }
+    // 유효성 검사 - 입력값이 더 큰 경우
+    if (withdrawAmount > findByAccountNo.balance) {
+      setToast({
+        isVisible: true,
+        type: 'fail',
+        message: `출금 실패! 잔액 부족 (현재 ${findByAccountNo.balance.toLocaleString()}원)`,
+      });
+      return;
+    }
+
+    // props 구조분해할당으로 accounts의 상태 변수
+    setAccounts((prev) => {
+      // 현재 accounts 값을 prev로 전달해줌 (accounts 배열 전체)
+      return prev.map((account) => {
+        // prev 배열 안의 계좌 객체를 하나씩 순서대로 꺼내옴
+        if (account === findByAccountNo) {
+          // account 배열 안 요소 중, 아까 find로 찾아둔 그 계좌 객체와 동일한 참조인지 확인
+          return {
+            // 해당 객체를 반환
+            ...account, // 이전 값
+            balance: Number(account.balance) - withdrawAmount, // 그중 balance의 값만 withdrawAmount를 빼서 반환
+          };
+        }
+        return account; // 입금 대상 계좌가 아니면(=원본과 다른 참조면) 변경 없이 그대로 리턴
+      });
+    });
+
+    setToast({
+      isVisible: true,
+      type: 'success',
+      message: `출금 성공! 현재 잔액이 반영되었습니다.`,
+    });
+    setAccountNo('');
+    setAmount('');
+  });
 
   return (
     <>
@@ -67,8 +138,12 @@ export default function TransferForm({ accounts, setAccounts }) {
           <span>문제 4 — deposit() / withdraw() 콜백</span>
         </div>
         <div className={styles.inputBox}>
-          <Input label={'계좌번호'} onChange={accountNoChangeHandler} />
-          <Input label={'금액'} onChange={amountChangeHandler} />
+          <Input
+            label={'계좌번호'}
+            value={accountNo}
+            onChange={accountNoChangeHandler}
+          />
+          <Input label={'금액'} value={amount} onChange={amountChangeHandler} />
         </div>
         <div className={styles.buttonBox}>
           <Button
@@ -82,7 +157,9 @@ export default function TransferForm({ accounts, setAccounts }) {
             clickEvent={withdrawHandler}
           />
         </div>
-        <Toast />
+        {isVisible && (
+          <Toast message={message} type={type} onClose={closeToastHandler} />
+        )}
       </div>
     </>
   );

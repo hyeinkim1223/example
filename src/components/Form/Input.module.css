@@ -16,15 +16,7 @@
   box-sizing: border-box;
 }
 .value:focus {
-  border-color: #ef4444 #2563eb;
-}
-.primary {
+  outline: none;
   border: 2px solid #2563eb;
-}
-.danger {
-  border-color: #dc2626;
-}
-.danger::placeholder {
-  color: #dc2626;
-  font-size: 13px;
+  margin: -1px;
 }
