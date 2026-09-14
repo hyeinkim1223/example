@@ -1,0 +1,22 @@
+.tableRowContent {
+    display:grid;
+    grid-template-columns: 40px 140px 1fr 160px 90px 80px;
+    font-size: 14px;
+    font-weight: 400;
+    padding: 14px 16px;
+    border: 1px solid #E5E7EB;
+    border-top: 0;
+    text-align: left;
+    gap: 12px;
+    align-items: center;
+    box-sizing: border-box;
+}
+.tableRowContent div:nth-child(4) {
+    text-align: right;
+}
+.tableRowContent div:last-child {
+    text-align: right;
+}
+.tableRowContent:hover {
+    background-color: #EFF6FF;
+}

@@ -3,7 +3,7 @@ import './App.css';
 import Header from './components/Header';
 import StatsGrid from './components/StatsGrid';
 import AccountForm from './components/AccountForm/AccountForm';
-import AccountTable from './components/AccountTable';
+import AccountTable from './components/AccountTable/AccountTable';
 import TransferForm from './components/TransferForm/TransferForm';
 import HistoryList from './components/HistoryList';
 import NotifyLog from './components/NotifyLog';
@@ -25,7 +25,7 @@ function App() {
         <main className="layout">
           <AccountForm accounts={accounts} setAccounts={setAccounts} />
           <TransferForm accounts={accounts} setAccounts={setAccounts} />
-          <AccountTable />
+          <AccountTable accounts={accounts} setAccounts={setAccounts} />
           <HistoryList />
           <NotifyLog />
         </main>

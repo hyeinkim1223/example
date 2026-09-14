@@ -147,12 +147,12 @@ export default function TransferForm({ accounts, setAccounts }) {
         </div>
         <div className={styles.buttonBox}>
           <Button
-            label={'입금'}
+            children={'입금'}
             variant="success"
             clickEvent={depositHandler}
           />
           <Button
-            label={'출금'}
+            children={'출금'}
             variant="danger"
             clickEvent={withdrawHandler}
           />

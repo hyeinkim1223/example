@@ -43,4 +43,20 @@
 .success:hover {
     background-color: #15803D;
 }
+.secondary {
+    width: 160px;
+    height: 33px;
+    background-color: white;
+    border-color:#E5E7EB;
+    font-weight: 500;
+    border: 1px solid #E5E7EB;
+    text-align: left;
+    padding: 8px 14px;
+}
+.secondary:hover {
+    background-color: #F3F4F6;
+}
+.secondary:disabled {
+    opacity: 50%;
+}
 

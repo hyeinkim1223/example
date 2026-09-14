@@ -79,7 +79,7 @@ export default function AccountForm({ accounts, setAccounts }) {
         </div>
         <span>ⓘ 숫자가 아니거나 0 미만이면 잔액은 0원으로 개설됩니다.</span>
         <Button
-          label={'계좌 개설'}
+          children={'계좌 개설'}
           variant="primary"
           clickEvent={accountSubmitHandler}
         />
