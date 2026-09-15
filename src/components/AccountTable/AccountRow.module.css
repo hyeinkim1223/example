@@ -20,3 +20,9 @@
 .tableRowContent:hover {
     background-color: #EFF6FF;
 }
+.noSelected {
+    color: #2563EB;
+}
+.selected {
+    color: #111827;
+}

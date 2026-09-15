@@ -67,6 +67,14 @@ export default function TransferForm({ accounts, setAccounts }) {
             // 해당 객체를 반환
             ...account, // 이전 값
             balance: Number(account.balance) + depositAmount, // 그중 balance의 값만 depositAmount 를 더해 반환
+            history: [
+              ...account.history,
+              {
+                type: 'deposit',
+                amount: depositAmount,
+                balance: Number(account.balance) + depositAmount,
+              },
+            ],
           };
         }
         return account; // 입금 대상 계좌가 아니면(=원본과 다른 참조면) 변경 없이 그대로 리턴
@@ -115,6 +123,14 @@ export default function TransferForm({ accounts, setAccounts }) {
             // 해당 객체를 반환
             ...account, // 이전 값
             balance: Number(account.balance) - withdrawAmount, // 그중 balance의 값만 withdrawAmount를 빼서 반환
+            history: [
+              ...account.history,
+              {
+                type: 'withdraw',
+                amount: withdrawAmount,
+                balance: Number(account.balance) - withdrawAmount,
+              },
+            ],
           };
         }
         return account; // 입금 대상 계좌가 아니면(=원본과 다른 참조면) 변경 없이 그대로 리턴

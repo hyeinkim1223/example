@@ -36,8 +36,8 @@ export default function AccountForm({ accounts, setAccounts }) {
       return;
     }
 
-    // owner, accountNo, balance 로 객체 만들기
-    const newAccount = { owner, accountNo, balance: validBalance };
+    // owner, accountNo, balance, history(초기 빈배열) 로 객체 만들기
+    const newAccount = { owner, accountNo, balance: validBalance, history: [] };
 
     if (
       accounts.some((account) => account.accountNo === newAccount.accountNo)

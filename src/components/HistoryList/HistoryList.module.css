@@ -1,0 +1,78 @@
+.container {
+    width: 376px;
+    height: 317px;
+    background-color: white;
+    border: 1px solid #E5E7EB;
+    box-sizing: border-box;
+    padding: 24px;
+    border-radius: 12px;
+}
+.titleBox {
+}
+.titleBox > span {
+    font-size: 12px;
+    color: #6B7280;
+}
+.title {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 2px;
+}
+.section {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+.filterTab {
+    background-color: #F3F4F6;
+    width: 145px;
+    height: 30px;
+    box-sizing: border-box;
+    border-radius: 8px;
+    padding: 4px;
+    display:flex;
+    gap: 4px;
+}
+.filterTab button {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    flex: 1;
+    height: 100%;
+    padding: 0;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 1;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #6B7280;
+}
+.filterTab button.active {
+    color: #111827;
+    background-color: white;
+}
+.items {
+    max-height: 171px;
+    overflow-y: scroll;
+}
+.summary {
+    background-color: #F3F4F6;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 10px 12px;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 8px;
+    margin-top: 12px;
+}
+.summary div:nth-child(1) {
+    color: #16A34A;
+}
+.summary div:nth-child(2) {
+    color: #DC2626;
+}
+.summary div:nth-child(3) {
+    color: #2563EB;
+}

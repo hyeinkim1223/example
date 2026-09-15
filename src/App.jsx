@@ -5,13 +5,13 @@ import StatsGrid from './components/StatsGrid';
 import AccountForm from './components/AccountForm/AccountForm';
 import AccountTable from './components/AccountTable/AccountTable';
 import TransferForm from './components/TransferForm/TransferForm';
-import HistoryList from './components/HistoryList';
+import HistoryList from './components/HistoryList/HistoryList';
 import NotifyLog from './components/NotifyLog';
 
 function App() {
   const [accounts, setAccounts] = useState([]);
-  const [selectedAccountNo, setSelectedAccountNo] = useState([]);
-  const [amountInput, setAmountInput] = useState([]);
+  const [selectedAccountNo, setSelectedAccountNo] = useState('');
+  // const [amountInput, setAmountInput] = useState([]);
 
   useEffect(() => {
     console.log(accounts);
@@ -25,8 +25,16 @@ function App() {
         <main className="layout">
           <AccountForm accounts={accounts} setAccounts={setAccounts} />
           <TransferForm accounts={accounts} setAccounts={setAccounts} />
-          <AccountTable accounts={accounts} setAccounts={setAccounts} />
-          <HistoryList />
+          <AccountTable
+            accounts={accounts}
+            setAccounts={setAccounts}
+            selectedAccountNo={selectedAccountNo}
+            setSelectedAccountNo={setSelectedAccountNo}
+          />
+          <HistoryList
+            accounts={accounts}
+            selectedAccountNo={selectedAccountNo}
+          />
           <NotifyLog />
         </main>
       </section>
