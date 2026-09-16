@@ -149,28 +149,18 @@ body {
 .layout {
   display: grid;
   gap: 24px;
-  grid-template-columns: 400px 1fr 1fr;
-  grid-template-areas:
-    'accountForm accountTable accountTable'
-    'transferForm historyList notifyLog';
+  grid-template-columns: 400px 1fr;
   align-items: start;
 }
-.layout > :nth-child(1) {
-  grid-area: accountForm;
+.leftCol,.rightCol {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
-
-.layout > :nth-child(2) {
-  grid-area: transferForm;
+.bottomRow {
+  display: flex;
+  gap: 24px;
 }
-
-.layout > :nth-child(3) {
-  grid-area: accountTable;
-}
-
-.layout > :nth-child(4) {
-  grid-area: historyList;
-}
-
-.layout > :nth-child(5) {
-  grid-area: notifyLog;
+.bottomRow > * {
+  flex: 1;
 }

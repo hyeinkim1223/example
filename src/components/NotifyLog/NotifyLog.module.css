@@ -1,0 +1,36 @@
+.container {
+    width: 376px;
+    height: 317px;
+    background-color: white;
+    border: 1px solid #E5E7EB;
+    box-sizing: border-box;
+    padding: 24px;
+    border-radius: 12px;
+}
+.titleBox {
+    margin-bottom: 12px;
+}
+.titleBox > span {
+    font-size: 12px;
+    color: #6B7280;
+}
+.title {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 2px;
+}
+.section {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+.consolePanel {
+    background-color: #1F2937;
+    padding: 14px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    color: white;
+    border-radius: 8px;
+    font-size: 13px;
+}

@@ -6,7 +6,7 @@ import AccountForm from './components/AccountForm/AccountForm';
 import AccountTable from './components/AccountTable/AccountTable';
 import TransferForm from './components/TransferForm/TransferForm';
 import HistoryList from './components/HistoryList/HistoryList';
-import NotifyLog from './components/NotifyLog';
+import NotifyLog from './components/NotifyLog/NotifyLog';
 
 function App() {
   const [accounts, setAccounts] = useState([]);
@@ -21,21 +21,28 @@ function App() {
     <div className="app">
       <Header />
       <section className="container">
-        <StatsGrid />
+        <StatsGrid accounts={accounts} />
         <main className="layout">
-          <AccountForm accounts={accounts} setAccounts={setAccounts} />
-          <TransferForm accounts={accounts} setAccounts={setAccounts} />
-          <AccountTable
-            accounts={accounts}
-            setAccounts={setAccounts}
-            selectedAccountNo={selectedAccountNo}
-            setSelectedAccountNo={setSelectedAccountNo}
-          />
-          <HistoryList
-            accounts={accounts}
-            selectedAccountNo={selectedAccountNo}
-          />
-          <NotifyLog />
+          <div className="leftCol">
+            <AccountForm accounts={accounts} setAccounts={setAccounts} />
+            <TransferForm accounts={accounts} setAccounts={setAccounts} />
+          </div>
+          <div className="rightCol">
+            {' '}
+            <AccountTable
+              accounts={accounts}
+              setAccounts={setAccounts}
+              selectedAccountNo={selectedAccountNo}
+              setSelectedAccountNo={setSelectedAccountNo}
+            />
+            <div className="bottomRow">
+              <HistoryList
+                accounts={accounts}
+                selectedAccountNo={selectedAccountNo}
+              />
+              <NotifyLog />
+            </div>
+          </div>
         </main>
       </section>
 

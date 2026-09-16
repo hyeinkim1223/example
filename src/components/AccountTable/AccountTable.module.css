@@ -1,6 +1,6 @@
 .container {
   width: 776px;
-  height: 398px;
+  min-height: 398px;
   background-color: white;
   border: 1px solid #e5e7eb;
   padding: 24px;

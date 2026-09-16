@@ -70,9 +70,13 @@
 .summary div:nth-child(1) {
     color: #16A34A;
 }
-.summary div:nth-child(2) {
-    color: #DC2626;
+.summary p {
+    color: #6B7280;
 }
 .summary div:nth-child(3) {
+    color: #DC2626;
+}
+.summary div:nth-child(4) {
     color: #2563EB;
+    cursor: pointer;
 }

@@ -51,3 +51,17 @@
     color: #6B7280;
     font-size: 12px;
 }
+.deposit {
+    color: #16A34A;
+}
+.withdraw {
+    color: #DC2626;
+}
+.depositBg {
+    background-color: #DCFCE7;
+    color: #16A34A;
+}
+.withdrawBg {
+    background-color: #FEE2E2;
+    color: #DC2626;
+}

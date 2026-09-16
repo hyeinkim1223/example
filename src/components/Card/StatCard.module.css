@@ -20,10 +20,15 @@
 .statCardValue {
     font-size: 28px;
     font-weight: 700;
-    /*color: #2563EB;*/
 }
 .statCardSub {
     font-size: 0.75rem;
     font-weight: 400;
     color: #6B7280;
+}
+.blue {
+    color: #2563EB;
+}
+.gold {
+    color: #D97706;
 }

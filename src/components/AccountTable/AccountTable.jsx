@@ -1,7 +1,7 @@
 import styles from './AccountTable.module.css';
 import Input from '../Form/Input';
 import Button from '../Form/Button';
-import Toast from '../Toast';
+import Toast from '../Form/Toast';
 import AccountRow from './AccountRow';
 import { useState } from 'react';
 

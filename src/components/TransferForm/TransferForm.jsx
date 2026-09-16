@@ -1,7 +1,7 @@
 import styles from './TransferForm.module.css';
 import Input from '../Form/Input';
 import Button from '../Form/Button';
-import Toast from '../Toast';
+import Toast from '../Form/Toast';
 import { useCallback, useState } from 'react';
 
 // accounts 배열 계좌번호와 입력한 계좌번호의 일치 여부 함수
