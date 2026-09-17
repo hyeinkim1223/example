@@ -5,6 +5,7 @@ import { useState } from 'react';
 
 export default function HistoryList({ accounts, selectedAccountNo }) {
   // accounts 전체 계좌 배열에서 선택한 계좌번호와 일치한 계좌 정보 조회
+  // 방금 바뀐 setSelectedAccountNo 을 가지고 일치하는 계좌 1개를 꺼내옴!!
   const selectedAccount = accounts.find(
     (account) => account.accountNo === selectedAccountNo,
   );
@@ -15,8 +16,13 @@ export default function HistoryList({ accounts, selectedAccountNo }) {
   // 탭메뉴 상태 변수
   let [selectedTab, setSelectedTab] = useState('all');
 
-  function filteredHistory() {
-    // 찾은 계좌 정보의 history 또는 빈배열을 filteredList 에 변수로 담기
+  // 탭메뉴, 최근 2건 보기 통합 필터 기능
+  const filteredHistory = () => {
+    // 선택된 계좌의 거래내역(history)의 배열 또는 빈 배열을 filterList에 할당
+    /* history 배열, 없을 시 [] 빈 배열로 처리
+    [{ type: 'deposit', amount: 30000, balance: 30000 },
+      { type: 'withdraw', amount: 10000, balance: 20000 }]
+     */
     let filteredList = selectedAccount?.history || [];
 
     // 만약 선택한 탭이 all이 아니라면
@@ -28,6 +34,7 @@ export default function HistoryList({ accounts, selectedAccountNo }) {
     }
 
     // isRecentTwoOnly가 true인 경우 배열 뒤에서 2개만 배열에 담기
+    // 그러나, 초기값이 false 니까 최근 2건 보기 처리가 되지않음.
     if (isRecentTwoOnly) {
       filteredList = filteredList.slice(-2);
     }
@@ -36,34 +43,25 @@ export default function HistoryList({ accounts, selectedAccountNo }) {
     filteredList = [...filteredList].reverse();
 
     return filteredList;
-  }
+  };
 
-  // getHistoryByType(account, type) : 입금 또는 출금 내역만 반환 (filter)
-  function getHistoryByType(account, type) {
-    // account가 없거나 history가 없으면 빈 배열 반환
-    if (!account || !account.history) return [];
-    // 계좌 객체 안의 history 배열에서, 입력한 type과 일치하는 내역 객체들만 모아 새 배열로 반환
+  // 입출금 타입별 총액 반환
+  const getTotalAmountByType = (filteredList, type) => {
+    return (
+      filteredList
+        // 필터링된 배열 중 인자로 받은 타입과 일치하는지 확인
+        .filter((record) => record.type === type)
+        // 필터링된 금액을 합산
+        .reduce((total, record) => {
+          // 각 내역의 amount(금액)를 누적 합산
+          return total + record.amount;
+        }, 0)
+    ); // 초기값 0원부터 시작 (내역이 없으면 0원 안전하게 반환)
+  };
 
-    // 2. 2건 검사해서 result 갱신
-    if (isRecentTwoOnly) {
-      return account.history.slice(-2).filter((record) => record.type === type);
-    }
-    return account.history.filter((record) => record.type === type);
-  }
-
-  // getTotalByType(account, type) : 타입별 총액 반환
-  function getTotalByType(historyList, type) {
-    // getHistoryByType으로 걸러낸 특정 타입 내역 배열을 targetHistory에 담음
-    let targetHistory = getHistoryByType(historyList, type);
-
-    return targetHistory.reduce((total, record) => {
-      // 각 내역의 amount(금액)를 누적 합산
-      return total + record.amount;
-    }, 0); // 초기값 0원부터 시작 (내역이 없으면 0원 안전하게 반환)
-  }
-
-  const totalDeposit = getTotalByType(selectedAccount, 'deposit'); // 총 입금액을 출력하는 함수 호출
-  const totalWithdraw = getTotalByType(selectedAccount, 'withdraw'); // 총 출금액을 출력하는 함수 호출
+  // 필터링된 배열과 type을 인자값으로 전달해서 입출금 총액 계산
+  const totalDeposit = getTotalAmountByType(filteredHistory(), 'deposit');
+  const totalWithdraw = getTotalAmountByType(filteredHistory(), 'withdraw');
 
   return (
     <>
@@ -101,7 +99,6 @@ export default function HistoryList({ accounts, selectedAccountNo }) {
           </div>
         </div>
         <div className={styles.items}>
-          {/* isRecentTwoOnly : true 면 slice(-2) 해주기 */}
           {filteredHistory().map((historyItem, index) => {
             return (
               <HistoryItem key={index} history={historyItem} index={index} />
@@ -112,9 +109,8 @@ export default function HistoryList({ accounts, selectedAccountNo }) {
           <div>총 입금 {totalDeposit.toLocaleString()}원</div>
           <p>/</p>
           <div>총 출금 {totalWithdraw.toLocaleString()}원</div>
-          {/* isRecentTwoOnly : true 면 최근2건보기 active 처리하기 */}
           <div onClick={() => setIsRecentTwoOnly((prev) => !prev)}>
-            {isRecentTwoOnly ? '전체 거래내역 보기' : '최근 2건 보기'}
+            {isRecentTwoOnly ? '전체보기' : '최근 2건 보기'}
           </div>
         </div>
       </div>

@@ -12,21 +12,23 @@ export default function AccountForm({ accounts, setAccounts }) {
   //   console.log(owner);
   // }, [owner]);
 
-  const ownerChangeHandler = useCallback(({ target }) => {
+  const ownerChangeHandler = ({ target }) => {
     setOwner(target.value);
-  }, []);
+  };
 
-  const accountNoChangeHandler = useCallback(({ target }) => {
+  const accountNoChangeHandler = ({ target }) => {
     setAccountNo(target.value);
-  }, []);
+  };
 
-  const balanceChangeHandler = useCallback(({ target }) => {
+  const balanceChangeHandler = ({ target }) => {
     setBalance(target.value);
-  }, []);
+  };
 
   const accountSubmitHandler = useCallback(() => {
     let validBalance = Number(balance);
 
+    // 문자열이거나, 0원 미만이면 0원으로 입력
+    // +추가 50,000 입력시 예외처리 - onChange로 콤마나, 넘버타입
     if (validBalance < 0 || isNaN(validBalance)) {
       validBalance = 0;
     }

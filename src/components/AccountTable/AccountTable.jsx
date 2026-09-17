@@ -35,6 +35,8 @@ export default function AccountTable({
 
   const sortByBalanceHandler = () => {
     if (!isSorted) {
+      // 리팩토링 필요
+      // let 선언해서 마지막에 set 한번만 처리하기
       const sorted = [...accounts].sort((a, b) => b.balance - a.balance);
       setAccounts(sorted);
       setIsSorted(true);
@@ -54,6 +56,7 @@ export default function AccountTable({
             <span>문제 5 — sortByBalance(), getVipNames()</span>
           </div>
           <Button
+            // 화살표 처리 조건부로 렌더링 처리하기..
             children={'↓ 잔액순 정렬'}
             variant="secondary"
             clickEvent={sortByBalanceHandler}

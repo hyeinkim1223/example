@@ -11,10 +11,10 @@ import NotifyLog from './components/NotifyLog/NotifyLog';
 function App() {
   const [accounts, setAccounts] = useState([]);
   const [selectedAccountNo, setSelectedAccountNo] = useState('');
-  // const [amountInput, setAmountInput] = useState([]);
 
   useEffect(() => {
     console.log(accounts);
+    accounts.map((item) => console.log(typeof item.balance));
   }, [accounts]);
 
   return (
@@ -25,7 +25,11 @@ function App() {
         <main className="layout">
           <div className="leftCol">
             <AccountForm accounts={accounts} setAccounts={setAccounts} />
-            <TransferForm accounts={accounts} setAccounts={setAccounts} />
+            <TransferForm
+              accounts={accounts}
+              setAccounts={setAccounts}
+              selectedAccountNo={selectedAccountNo}
+            />
           </div>
           <div className="rightCol">
             {' '}
