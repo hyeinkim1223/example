@@ -11,6 +11,14 @@ export default function StatsGrid({ accounts }) {
   // Math.round(): 입력값을 반올림한 수와 가장 가까운 정수 값 반환
   const averageBalance = Math.round(totalBalance / (accounts.length || 1));
 
+  // 여기 만드는중 ...  ㅠㅠ
+  const a = () => {
+    if (totalBalance >= 100_000_000_000) {
+      const newBalance = totalBalance / 100_000_000;
+      return newBalance + '억';
+    }
+  };
+
   return (
     <>
       <div className={styles.titleArea}>
