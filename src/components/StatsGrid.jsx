@@ -8,7 +8,8 @@ export default function StatsGrid({ accounts }) {
     0,
   );
   // 평균 (만약 배열에 값이 없으면 NaN이 나오기 때문에, 기본값 1로 처리)
-  const averageBalance = totalBalance / (accounts.length || 1);
+  // Math.round(): 입력값을 반올림한 수와 가장 가까운 정수 값 반환
+  const averageBalance = Math.round(totalBalance / (accounts.length || 1));
 
   return (
     <>

@@ -2,7 +2,7 @@ import styles from './TransferForm.module.css';
 import Input from '../Form/Input';
 import Button from '../Form/Button';
 import Toast from '../Form/Toast';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 // ({ accounts, setAccounts })는 구조분해 할당으로 가져온 값
 export default function TransferForm({ accounts, setAccounts }) {
@@ -34,7 +34,9 @@ export default function TransferForm({ accounts, setAccounts }) {
 
   // 금액 입력값 변경 핸들러
   const amountChangeHandler = ({ target }) => {
-    setAmount(target.value);
+    // 정규표현식을 사용하여 문자를 숫자로 변경
+    // 숫자가 아닌 모든 숫자를 전체 대상으로 빈문자열로 바꾸라는 의미
+    setAmount(target.value.replace(/[^0-9]/g, ''));
   };
 
   // 입출금 기능 통합 핸들러
@@ -71,13 +73,22 @@ export default function TransferForm({ accounts, setAccounts }) {
       return;
     }
 
+    // 유효성 검사 4. 100억 이상 입력시 입력 제한 및 alert 실행
+    if (amount > 10_000_000_000) {
+      setToast({
+        isVisible: true,
+        type: 'fail',
+        message: `금액은 최대 100억 원까지만 가능합니다.`,
+      });
+      return;
+    }
+
     // 유효성 검사가 마치게 되면 accounts 변수의 상태값을 변경
     setAccounts((prev) => {
       // 현재 accounts 값을 prev로 전달해줌 (accounts 배열 전체)
       // 계좌개설 입,출금은 하나의 계좌만 바뀜 find로 하고 setState 처리하는게 나음
       // 왜냐면 예를들어 계좌가 많으면 무조건 앞에서부터 순회를 돌기때문에 로딩이 길어짐
       // map -> find로 처리하기
-      // 토스트를 자동으로 3초뒤에 꺼지기.. useEffect랑 비동기 처리
       return prev.map((account) => {
         // type 값으로 계산로직 변경
         const newBalance =
@@ -114,6 +125,17 @@ export default function TransferForm({ accounts, setAccounts }) {
     setAmount('');
   };
 
+  useEffect(() => {
+    // isVisible 이 false 타이머 작동을 할 필요가 없음
+    if (!toast.isVisible) return;
+
+    const timer = setTimeout(() => {
+      setToast((prev) => ({ ...prev, isVisible: false }));
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, [toast.isVisible]); // [] 의존성 배열 안에 토스트가 보이는 유무에 따라 재실행
+
   return (
     <>
       <div className={styles.container}>
@@ -131,19 +153,22 @@ export default function TransferForm({ accounts, setAccounts }) {
         </div>
         <div className={styles.buttonBox}>
           <Button
-            children={'입금'}
+            label={'입금'}
             variant="success"
             clickEvent={() => transactionHandler('deposit')}
           />
           <Button
-            children={'출금'}
+            label={'출금'}
             variant="danger"
             clickEvent={() => transactionHandler('withdraw')}
           />
         </div>
-        {isVisible && (
-          <Toast message={message} type={type} onClose={closeToastHandler} />
-        )}
+        <Toast
+          isVisible={toast.isVisible}
+          message={message}
+          type={type}
+          onClose={closeToastHandler}
+        />
       </div>
     </>
   );

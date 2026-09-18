@@ -30,21 +30,37 @@ export default function AccountTable({
     .map((account) => account.owner)
     .join(', ');
 
-  // 잔액순 정렬하기
-  const [isSorted, setIsSorted] = useState(false);
+  // 잔액순 정렬하기 (계좌생성순 → 잔액높은순 → 잔액낮은순)
+  const [isSorted, setIsSorted] = useState('default'); // 기본 정렬값 default
+  // 복사가 아님, 참조값 동일 → 사용하는 이유? 의미를 담은 변수명을 하나 더 만들기 위해서
+  let displayAccounts = accounts;
+
+  if (isSorted === 'desc') {
+    // 잔액 높은순 (desc)
+    displayAccounts = [...displayAccounts].sort(
+      (a, b) => b.balance - a.balance,
+    );
+  } else if (isSorted === 'asc') {
+    // 잔액 낮은순 (asc)
+    displayAccounts = [...displayAccounts].sort(
+      (a, b) => a.balance - b.balance,
+    );
+  }
 
   const sortByBalanceHandler = () => {
-    if (!isSorted) {
-      // 리팩토링 필요
-      // let 선언해서 마지막에 set 한번만 처리하기
-      const sorted = [...accounts].sort((a, b) => b.balance - a.balance);
-      setAccounts(sorted);
-      setIsSorted(true);
-    } else {
-      const sorted = [...accounts].sort((a, b) => a.balance - b.balance);
-      setAccounts(sorted);
-      setIsSorted(false);
+    if (isSorted === 'default') {
+      setIsSorted('desc');
+    } else if (isSorted === 'desc') {
+      setIsSorted('asc');
+    } else if (isSorted === 'asc') {
+      setIsSorted('default');
     }
+  };
+
+  const sortLabels = {
+    default: '↕ 계좌 개설순',
+    desc: '↑ 잔액 높은순',
+    asc: '↓ 잔액 높은순',
   };
 
   return (
@@ -57,7 +73,7 @@ export default function AccountTable({
           </div>
           <Button
             // 화살표 처리 조건부로 렌더링 처리하기..
-            children={'↓ 잔액순 정렬'}
+            label={sortLabels[isSorted]}
             variant="secondary"
             clickEvent={sortByBalanceHandler}
           />
@@ -71,7 +87,7 @@ export default function AccountTable({
           <div></div>
         </div>
         <div className={styles.tableBody}>
-          {accounts.map((account, index) => (
+          {displayAccounts.map((account, index) => (
             <AccountRow
               key={account.accountNo}
               no={index + 1}

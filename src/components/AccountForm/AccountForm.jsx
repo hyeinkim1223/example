@@ -12,35 +12,45 @@ export default function AccountForm({ accounts, setAccounts }) {
   //   console.log(owner);
   // }, [owner]);
 
+  // 예금주
   const ownerChangeHandler = ({ target }) => {
     setOwner(target.value);
   };
 
+  // 계좌번호
   const accountNoChangeHandler = ({ target }) => {
     setAccountNo(target.value);
   };
 
+  // 초기 입금액
   const balanceChangeHandler = ({ target }) => {
-    setBalance(target.value);
+    // 정규표현식을 사용하여 문자를 숫자로 변경
+    // 숫자가 아닌 모든 숫자를 전체 대상으로 빈문자열로 바꾸라는 의미
+    setBalance(target.value.replace(/[^0-9]/g, ''));
   };
 
-  const accountSubmitHandler = useCallback(() => {
+  // 계좌 개설 핸들러
+  const accountSubmitHandler = () => {
     let validBalance = Number(balance);
 
-    // 문자열이거나, 0원 미만이면 0원으로 입력
-    // +추가 50,000 입력시 예외처리 - onChange로 콤마나, 넘버타입
-    if (validBalance < 0 || isNaN(validBalance)) {
-      validBalance = 0;
-    }
+    // owner, accountNo, balance, history(초기 빈배열) 로 객체 생성
+    const newAccount = { owner, accountNo, balance: validBalance, history: [] };
 
+    // 유효성 검사 1. input에 값이 하나라도 없을 경우 alert 실행
     if (!owner || !accountNo || !balance) {
       alert('값을 모두 입력해주세요');
       return;
     }
 
-    // owner, accountNo, balance, history(초기 빈배열) 로 객체 만들기
-    const newAccount = { owner, accountNo, balance: validBalance, history: [] };
+    // 유효성 검사 2. 초기입금액이 문자열 또는 0원 미만일 때 0원으로 처리
+    // * 문제점 : 초기 입금액 input에 애초에 숫자외에 입력이 안되게 처리함 (balanceChangeHandler 함수)
 
+    // 문자열이거나, 0원 미만이면 0원으로 입력
+    if (validBalance < 0 || isNaN(validBalance)) {
+      validBalance = 0;
+    }
+
+    // 유효성 검사 3. 이미 있는 계좌번호 유무 검증
     if (
       accounts.some((account) => account.accountNo === newAccount.accountNo)
     ) {
@@ -48,12 +58,17 @@ export default function AccountForm({ accounts, setAccounts }) {
       return;
     }
 
+    // 유효성 검사 4. 100억 이상 입력시 입력 제한 및 alert 실행
+    if (balance > 10_000_000_000) {
+      return alert('초기 입금액은 최대 100억 원까지만 가능합니다.');
+    }
+
     // setAccounts 함수를 사용해 생성된 객체를 ... 스프레드 문법으로 이전 배열에 추가하여 새배열 반환
     setAccounts((prev) => [...prev, newAccount]);
     setOwner('');
     setAccountNo('');
     setBalance('');
-  }, [accounts, owner, accountNo, balance, setAccounts]);
+  };
 
   return (
     <>
@@ -81,7 +96,7 @@ export default function AccountForm({ accounts, setAccounts }) {
         </div>
         <span>ⓘ 숫자가 아니거나 0 미만이면 잔액은 0원으로 개설됩니다.</span>
         <Button
-          children={'계좌 개설'}
+          label={'계좌 개설'}
           variant="primary"
           clickEvent={accountSubmitHandler}
         />

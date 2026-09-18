@@ -1,7 +1,7 @@
 import styles from './Button.module.css';
 
 export default function Button({
-  children,
+  label,
   variant = 'primary', // primary, success, danger, secondary
   disabled = false,
   clickEvent,
@@ -14,7 +14,7 @@ export default function Button({
       disabled={disabled}
       onClick={clickEvent}
     >
-      {children}
+      {label}
     </button>
   );
 }
