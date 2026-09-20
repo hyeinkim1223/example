@@ -11,12 +11,12 @@ export default function StatsGrid({ accounts }) {
   // Math.round(): 입력값을 반올림한 수와 가장 가까운 정수 값 반환
   const averageBalance = Math.round(totalBalance / (accounts.length || 1));
 
-  // 여기 만드는중 ...  ㅠㅠ
-  const a = () => {
-    if (totalBalance >= 100_000_000_000) {
-      const newBalance = totalBalance / 100_000_000;
-      return newBalance + '억';
+  // 100억 단위 환산 함수
+  const formattedAmount = (amount) => {
+    if (amount >= 10_000_000_000) {
+      return Math.round(amount / 100_000_000).toLocaleString() + '억';
     }
+    return amount;
   };
 
   return (
@@ -34,12 +34,12 @@ export default function StatsGrid({ accounts }) {
         />
         <StatCard
           label={'전체 잔액'}
-          value={`${totalBalance.toLocaleString()}원`}
+          value={`${formattedAmount(totalBalance).toLocaleString()}원`}
           sub={'reduce 합계'}
         />
         <StatCard
           label={'평균 잔액'}
-          value={`${averageBalance.toLocaleString()}원`}
+          value={`${formattedAmount(averageBalance).toLocaleString()}원`}
           sub={'전체 잔액 ÷ 계좌 수'}
         />
         <StatCard
