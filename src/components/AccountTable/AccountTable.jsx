@@ -13,7 +13,7 @@ export default function AccountTable({
   selectedAccountNo,
   setSelectedAccountNo,
 }) {
-  // 유효성 검사
+  // 유효성 검사 : 왜 필요하지..?
   const isAllVaild =
     accounts.length > 0 && // 배열에 길이가 0보다 크고
     // every() : 배열 내 하나라도 만족하지 않으면 false
@@ -24,6 +24,7 @@ export default function AccountTable({
 
   // VIP 대상자 걸러내기
   const vipNames = accounts
+    // 첫 단계가 filter 이기 때문에 원본이 유지
     .filter((account) => Number(account.balance) >= 1000000)
     .sort((a, b) => b.balance - a.balance)
     .slice(0, 5)

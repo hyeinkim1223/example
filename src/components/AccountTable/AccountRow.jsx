@@ -28,13 +28,13 @@ export default function AccountRow({
   const isSelected = accountNo === selectedAccountNo;
 
   // 선택된 계좌
-  const seletedHandler = () => {
+  const selectedHandler = () => {
     setSelectedAccountNo(accountNo);
   };
 
   return (
     <>
-      <div className={styles.tableRowContent} onClick={seletedHandler}>
+      <div className={styles.tableRowContent} onClick={selectedHandler}>
         <div>{no}</div>
         <div>{owner}</div>
         <div>{accountNo}</div>
