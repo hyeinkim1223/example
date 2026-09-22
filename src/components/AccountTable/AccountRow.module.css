@@ -11,14 +11,18 @@
     align-items: center;
     box-sizing: border-box;
 }
-.tableRowContent div:nth-child(4) {
+.tableRowContent td:nth-child(4) {
     text-align: right;
 }
-.tableRowContent div:last-child {
+.tableRowContent td:last-child {
     text-align: right;
 }
 .tableRowContent:hover {
     background-color: #EFF6FF;
+}
+.checkButton {
+    cursor: pointer;
+    background-color: transparent;
 }
 .noSelected {
     color: #2563EB;

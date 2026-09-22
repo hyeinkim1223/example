@@ -1,14 +1,15 @@
-header {
+.headerSection {
     width: 100%;
     height: 64px;
     background-color: white;
     border-bottom: 1px solid #E5E7EB;
     display: flex;
+    white-space: nowrap; /* flex 요소 때문에 줄어드는 현상을 막아줌 */
     justify-content: left;
     gap: 42px;
     align-items: center;
-    padding: 0 120px;
     box-sizing: border-box;
+    padding: 0 120px;
 }
 .section {
     display: flex;
@@ -23,11 +24,11 @@ header {
     color: white;
     font-weight: 700;
 }
-.title {
+.brandTitle {
     font-size: 1.25rem;
     font-weight: 700;
 }
-.section > span {
+.subTitle {
     font-size: 0.875rem;
     color: #6B7280;
 }

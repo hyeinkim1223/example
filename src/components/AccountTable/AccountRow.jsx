@@ -33,17 +33,21 @@ export default function AccountRow({
   };
 
   return (
-    <>
-      <div className={styles.tableRowContent} onClick={selectedHandler}>
-        <div>{no}</div>
-        <div>{owner}</div>
-        <div>{accountNo}</div>
-        <div>{balance.toLocaleString()}원</div>
+    <tr className={styles.tableRowContent} onClick={selectedHandler}>
+      <td>{no}</td>
+      <td>{owner}</td>
+      <td>{accountNo}</td>
+      <td>{balance.toLocaleString()}원</td>
+      <td>
         <Badge label={label} grade={grade} />
-        <div className={isSelected ? styles.selected : styles.noSelected}>
+      </td>
+      <td>
+        <button
+          className={`${styles.checkButton} ${isSelected ? styles.selected : styles.noSelected}`}
+        >
           {isSelected ? '조회중' : '조회'}
-        </div>
-      </div>
-    </>
+        </button>
+      </td>
+    </tr>
   );
 }

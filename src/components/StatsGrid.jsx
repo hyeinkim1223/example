@@ -20,11 +20,13 @@ export default function StatsGrid({ accounts }) {
   };
 
   return (
-    <>
-      <div className={styles.titleArea}>
-        <div className={styles.title}>대시보드</div>
-        <span>계좌를 개설하고 입금·출금·거래내역을 관리합니다.</span>
-      </div>
+    <section className={styles.dashboardSection}>
+      <header className={styles.headerSection}>
+        <h2 className={styles.title}>대시보드</h2>
+        <label className={styles.description}>
+          계좌를 개설하고 입금·출금·거래내역을 관리합니다.
+        </label>
+      </header>
       <div className={styles.statsGrid}>
         <StatCard
           label={'총 계좌 수'}
@@ -49,6 +51,6 @@ export default function StatsGrid({ accounts }) {
           color={'gold'}
         />
       </div>
-    </>
+    </section>
   );
 }

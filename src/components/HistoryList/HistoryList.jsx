@@ -64,56 +64,63 @@ export default function HistoryList({ accounts, selectedAccountNo }) {
   const totalWithdraw = getTotalAmountByType(filteredHistory(), 'withdraw');
 
   return (
-    <>
-      <div className={styles.container}>
-        <div className={styles.section}>
-          <div className={styles.titleBox}>
-            <div className={styles.title}>거래내역</div>
-            <span>
-              {selectedAccount ? selectedAccount.owner : '이름'} ·{' '}
-              {selectedAccount ? selectedAccount.accountNo : '계좌번호'}
-            </span>
-          </div>
-          <div className={styles.filterTab}>
-            <button
-              type="button"
-              className={selectedTab === 'all' ? styles.active : ''}
-              onClick={() => setSelectedTab('all')}
-            >
-              전체
-            </button>
-            <button
-              type="button"
-              className={selectedTab === 'deposit' ? styles.active : ''}
-              onClick={() => setSelectedTab('deposit')}
-            >
-              입금
-            </button>
-            <button
-              type="button"
-              className={selectedTab === 'withdraw' ? styles.active : ''}
-              onClick={() => setSelectedTab('withdraw')}
-            >
-              출금
-            </button>
-          </div>
+    <section className={styles.HistoryListSection}>
+      <header className={styles.headerSection}>
+        <div className={styles.titleGroup}>
+          <h2 className={styles.title}>거래내역</h2>
+          <label className={styles.description}>
+            {selectedAccount ? selectedAccount.owner : '이름'} ·{' '}
+            {selectedAccount ? selectedAccount.accountNo : '계좌번호'}
+          </label>
         </div>
-        <div className={styles.items}>
-          {filteredHistory().map((historyItem, index) => {
-            return (
-              <HistoryItem key={index} history={historyItem} index={index} />
-            );
-          })}
+        <div className={styles.filterTab}>
+          <button
+            type="button"
+            className={selectedTab === 'all' ? styles.active : ''}
+            onClick={() => setSelectedTab('all')}
+          >
+            전체
+          </button>
+          <button
+            type="button"
+            className={selectedTab === 'deposit' ? styles.active : ''}
+            onClick={() => setSelectedTab('deposit')}
+          >
+            입금
+          </button>
+          <button
+            type="button"
+            className={selectedTab === 'withdraw' ? styles.active : ''}
+            onClick={() => setSelectedTab('withdraw')}
+          >
+            출금
+          </button>
         </div>
-        <div className={styles.summary}>
-          <div>총 입금 {totalDeposit.toLocaleString()}원</div>
-          <p>/</p>
-          <div>총 출금 {totalWithdraw.toLocaleString()}원</div>
-          <div onClick={() => setIsRecentTwoOnly((prev) => !prev)}>
-            {isRecentTwoOnly ? '전체보기' : '최근 2건 보기'}
-          </div>
-        </div>
-      </div>
-    </>
+      </header>
+
+      <ul className={styles.itemGroup}>
+        {filteredHistory().map((historyItem, index) => {
+          return (
+            <HistoryItem key={index} history={historyItem} index={index} />
+          );
+        })}
+      </ul>
+
+      <footer className={styles.summary}>
+        <p className={styles.totalDeposit}>
+          총 입금 {totalDeposit.toLocaleString()}원
+        </p>
+        <p>/</p>
+        <p className={styles.totalWithdraw}>
+          총 출금 {totalWithdraw.toLocaleString()}원
+        </p>
+        <button
+          className={styles.recentButton}
+          onClick={() => setIsRecentTwoOnly((prev) => !prev)}
+        >
+          {isRecentTwoOnly ? '전체보기' : '최근 2건 보기'}
+        </button>
+      </footer>
+    </section>
   );
 }

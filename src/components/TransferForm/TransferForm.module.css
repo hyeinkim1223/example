@@ -1,4 +1,4 @@
-.container {
+.transferFormSection {
     width: 400px;
     height: 362px;
     box-sizing: border-box;
@@ -7,10 +7,10 @@
     background-color: white;
     padding: 24px;
 }
-.titleBox {
+.headerSection {
     margin-bottom: 16px;
 }
-.titleBox > span {
+.description {
     font-size: 12px;
     color: #6B7280;
 }
@@ -19,18 +19,12 @@
     font-weight: 700;
     margin-bottom: 2px;
 }
-.inputBox {
+.inputGroup {
     display: flex;
     flex-direction: column;
     gap: 16px;
 }
-.container > span {
-    font-size: 12px;
-    color: #6B7280;
-    display: block;
-    margin: 16px 0;
-}
-.buttonBox {
+.buttonGroup {
     margin: 16px 0;
     display: flex;
     gap: 12px;

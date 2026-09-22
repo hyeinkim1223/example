@@ -1,4 +1,4 @@
-.container {
+.accountFormSection {
     width: 400px;
     height: 422px;
     box-sizing: border-box;
@@ -7,10 +7,10 @@
     background-color: white;
     padding: 24px;
 }
-.titleBox {
+.headerSection {
     margin-bottom: 16px;
 }
-.titleBox > span {
+.description {
     font-size: 12px;
     color: #6B7280;
 }
@@ -19,12 +19,12 @@
     font-weight: 700;
     margin-bottom: 2px;
 }
-.inputBox {
+.inputGroup {
     display: flex;
     flex-direction: column;
     gap: 16px;
 }
-.container > span {
+.helpText {
     font-size: 12px;
     color: #6B7280;
     display: block;

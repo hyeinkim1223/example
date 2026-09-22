@@ -14,22 +14,20 @@ export default function HistoryItem({ history, index }) {
     type === 'deposit' ? `${styles.depositBg}` : `${styles.withdrawBg}`; //입출금액에 따라 아이콘 배경색 변경
 
   return (
-    <>
-      <div className={styles.container}>
-        <div className={styles.flexArea}>
-          <div className={`${styles.icon} ${arrowColor}`}>{arrowStr}</div>
-          <div className={styles.infoArea}>
-            <div className={styles.title}>{typeKor}</div>
-            <div className={styles.date}>
-              {new Date().toISOString().slice(0, 10)}
-            </div>
-          </div>
-          <div className={styles.amountArea}>
-            <div className={`${styles.amount} ${amountColor}`}>{amountStr}</div>
-            <div className={styles.after}>잔액 {balanceStr}</div>
-          </div>
+    <li className={styles.HistoryItem}>
+      <div className={styles.content}>
+        <div className={`${styles.icon} ${arrowColor}`}>{arrowStr}</div>
+        <div className={styles.infoGroup}>
+          <span className={styles.title}>{typeKor}</span>
+          <time className={styles.date}>
+            {new Date().toISOString().slice(0, 10)}
+          </time>
+        </div>
+        <div className={styles.amountGroup}>
+          <span className={`${styles.amount} ${amountColor}`}>{amountStr}</span>
+          <span className={styles.after}>잔액 {balanceStr}</span>
         </div>
       </div>
-    </>
+    </li>
   );
 }

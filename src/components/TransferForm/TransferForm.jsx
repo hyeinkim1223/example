@@ -2,7 +2,7 @@ import styles from './TransferForm.module.css';
 import Input from '../Form/Input';
 import Button from '../Form/Button';
 import Toast from '../Form/Toast';
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 // ({ accounts, setAccounts })는 구조분해 할당으로 가져온 값
 export default function TransferForm({ accounts, setAccounts }) {
@@ -137,32 +137,34 @@ export default function TransferForm({ accounts, setAccounts }) {
   }, [toast.isVisible]); // [] 의존성 배열 안에 토스트가 보이는 유무에 따라 재실행
 
   return (
-    <>
-      <div className={styles.container}>
-        <div className={styles.titleBox}>
-          <div className={styles.title}>입금 · 출금</div>
-          <span>문제 4 — deposit() / withdraw() 콜백</span>
-        </div>
-        <div className={styles.inputBox}>
-          <Input
-            label={'계좌번호'}
-            value={accountNo}
-            onChange={accountNoChangeHandler}
-          />
-          <Input label={'금액'} value={amount} onChange={amountChangeHandler} />
-        </div>
-        <div className={styles.buttonBox}>
-          <Button
-            label={'입금'}
-            variant="success"
-            clickEvent={() => transactionHandler('deposit')}
-          />
-          <Button
-            label={'출금'}
-            variant="danger"
-            clickEvent={() => transactionHandler('withdraw')}
-          />
-        </div>
+    <section className={styles.transferFormSection}>
+      <div className={styles.headerSection}>
+        <div className={styles.title}>입금 · 출금</div>
+        <label className={styles.description}>
+          문제 4 — deposit() / withdraw() 콜백
+        </label>
+      </div>
+      <div className={styles.inputGroup}>
+        <Input
+          label={'계좌번호'}
+          value={accountNo}
+          onChange={accountNoChangeHandler}
+        />
+        <Input label={'금액'} value={amount} onChange={amountChangeHandler} />
+      </div>
+      <div className={styles.buttonGroup}>
+        <Button
+          label={'입금'}
+          variant="success"
+          clickEvent={() => transactionHandler('deposit')}
+        />
+        <Button
+          label={'출금'}
+          variant="danger"
+          clickEvent={() => transactionHandler('withdraw')}
+        />
+      </div>
+      <div className={styles.toastArea}>
         <Toast
           isVisible={toast.isVisible}
           message={message}
@@ -170,6 +172,6 @@ export default function TransferForm({ accounts, setAccounts }) {
           onClose={closeToastHandler}
         />
       </div>
-    </>
+    </section>
   );
 }

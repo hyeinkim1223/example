@@ -1,4 +1,4 @@
-.container {
+.HistoryListSection {
     width: 376px;
     height: 317px;
     background-color: white;
@@ -7,9 +7,12 @@
     padding: 24px;
     border-radius: 12px;
 }
-.titleBox {
+.headerSection {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
 }
-.titleBox > span {
+.description {
     font-size: 12px;
     color: #6B7280;
 }
@@ -17,11 +20,6 @@
     font-size: 18px;
     font-weight: 700;
     margin-bottom: 2px;
-}
-.section {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 12px;
 }
 .filterTab {
     background-color: #F3F4F6;
@@ -66,17 +64,15 @@
     justify-content: space-between;
     border-radius: 8px;
     margin-top: 12px;
-}
-.summary div:nth-child(1) {
-    color: #16A34A;
-}
-.summary p {
     color: #6B7280;
 }
-.summary div:nth-child(3) {
+.totalDeposit {
+    color: #16A34A;
+}
+.totalWithdraw {
     color: #DC2626;
 }
-.summary div:nth-child(4) {
+.recentButton {
     color: #2563EB;
     cursor: pointer;
 }

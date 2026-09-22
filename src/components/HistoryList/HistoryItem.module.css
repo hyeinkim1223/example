@@ -1,10 +1,10 @@
-.container {
+.HistoryItem {
     width: 100%;
     border-bottom: 1px solid #E5E7EB;
     padding: 12px 0;
     box-sizing: border-box;
 }
-.flexArea {
+.content {
     display: flex;
     gap:12px;
     align-items: center;
@@ -20,12 +20,11 @@
     font-weight: 700;
     font-size: 14px;
 }
-.infoArea {
+.infoGroup {
     display: flex;
     flex-direction: column;
     gap: 2px;
     flex:5;
-
 }
 .title {
     font-size: 14px;
@@ -36,7 +35,7 @@
     color: #6B7280;
     font-weight: 400;
 }
-.amountArea {
+.amountGroup {
     display: flex;
     flex-direction: column;
     gap: 2px;

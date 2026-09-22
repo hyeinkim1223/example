@@ -65,13 +65,15 @@ export default function AccountTable({
   };
 
   return (
-    <>
-      <div className={styles.container}>
-        <div className={styles.section}>
-          <div className={styles.titleBox}>
-            <div className={styles.title}>전체 계좌</div>
-            <span>문제 5 — sortByBalance(), getVipNames()</span>
-          </div>
+    <section className={styles.accountTableSection}>
+      <div className={styles.headerSection}>
+        <div className={styles.titleGroup}>
+          <h2 className={styles.title}>전체 계좌</h2>
+          <label className={styles.description}>
+            문제 5 — sortByBalance(), getVipNames()
+          </label>
+        </div>
+        <div className={styles.buttonGroup}>
           <Button
             // 화살표 처리 조건부로 렌더링 처리하기..
             label={sortLabels[isSorted]}
@@ -79,15 +81,20 @@ export default function AccountTable({
             clickEvent={sortByBalanceHandler}
           />
         </div>
-        <div className={styles.tableRowHeader}>
-          <div>#</div>
-          <div>예금주</div>
-          <div>계좌번호</div>
-          <div>잔액</div>
-          <div>등급</div>
-          <div></div>
-        </div>
-        <div className={styles.tableBody}>
+      </div>
+      <table className={styles.table}>
+        <thead>
+          <tr className={styles.tableRowHeader}>
+            <th>#</th>
+            <th>예금주</th>
+            <th>계좌번호</th>
+            <th>잔액</th>
+            <th>등급</th>
+            <th></th>
+          </tr>
+        </thead>
+
+        <tbody className={styles.tableBody}>
           {displayAccounts.map((account, index) => (
             <AccountRow
               key={account.accountNo}
@@ -97,14 +104,15 @@ export default function AccountTable({
               setSelectedAccountNo={setSelectedAccountNo}
             />
           ))}
-        </div>
-        <div className={styles.tableFooter}>
-          <div className={styles.totalAccount}>
-            총 {accounts.length}개 계좌 · 모두 유효(every): {String(isAllVaild)}
-          </div>
-          <div className={styles.vipName}>VIP(100만↑): {vipNames}</div>
-        </div>
-      </div>
-    </>
+        </tbody>
+      </table>
+
+      <footer className={styles.tableFooter}>
+        <span className={styles.totalAccount}>
+          총 {accounts.length}개 계좌 · 모두 유효(every): {String(isAllVaild)}
+        </span>
+        <span className={styles.vipNames}>VIP(100만↑): {vipNames}</span>
+      </footer>
+    </section>
   );
 }

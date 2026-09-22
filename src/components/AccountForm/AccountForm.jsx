@@ -1,7 +1,7 @@
 import styles from './AccountForm.module.css';
 import Input from '../Form/Input.jsx';
 import Button from '../Form/Button';
-import { useCallback, useEffect, useState } from 'react';
+import { useState } from 'react';
 export default function AccountForm({ accounts, setAccounts }) {
   const [owner, setOwner] = useState('');
   const [accountNo, setAccountNo] = useState('');
@@ -71,37 +71,37 @@ export default function AccountForm({ accounts, setAccounts }) {
   };
 
   return (
-    <>
-      <div className={styles.container}>
-        <div className={styles.titleBox}>
-          <div className={styles.title}>계좌 개설</div>
-          <span>문제 1·2 — createAccount()</span>
-        </div>
-        <div className={styles.inputBox}>
-          <Input
-            label={'예금주 이름'}
-            value={owner}
-            onChange={ownerChangeHandler}
-          />
-          <Input
-            label={'계좌번호'}
-            value={accountNo}
-            onChange={accountNoChangeHandler}
-          />
-          <Input
-            label={'초기 입금액'}
-            value={balance}
-            onChange={balanceChangeHandler}
-          />
-        </div>
-        <span>ⓘ 숫자가 아니거나 0 미만이면 잔액은 0원으로 개설됩니다.</span>
-        <Button
-          label={'계좌 개설'}
-          variant="primary"
-          clickEvent={accountSubmitHandler}
+    <section className={styles.accountFormSection}>
+      <header className={styles.headerSection}>
+        <h2 className={styles.title}>계좌 개설</h2>
+        <label className={styles.description}>문제 1·2 — createAccount()</label>
+      </header>
+      <div className={styles.inputGroup}>
+        <Input
+          label={'예금주 이름'}
+          value={owner}
+          onChange={ownerChangeHandler}
         />
-        {/* const props = {variant : "", clickEvent : ()=>{};}  */}
+        <Input
+          label={'계좌번호'}
+          value={accountNo}
+          onChange={accountNoChangeHandler}
+        />
+        <Input
+          label={'초기 입금액'}
+          value={balance}
+          onChange={balanceChangeHandler}
+        />
       </div>
-    </>
+      <p className={styles.helpText}>
+        ⓘ 숫자가 아니거나 0 미만이면 잔액은 0원으로 개설됩니다.
+      </p>
+      <Button
+        label={'계좌 개설'}
+        variant="primary"
+        clickEvent={accountSubmitHandler}
+      />
+      {/* const props = {variant : "", clickEvent : ()=>{};}  */}
+    </section>
   );
 }

@@ -1,4 +1,4 @@
-.container {
+.accountTableSection {
   width: 776px;
   min-height: 398px;
   background-color: white;
@@ -7,10 +7,14 @@
   border-radius: 12px;
   box-sizing: border-box;
 }
-.titleBox {
+.headerSection {
+  display: flex;
+  justify-content: space-between;
+}
+.titleGroup {
   margin-bottom: 16px;
 }
-.titleBox > span {
+.description {
   font-size: 12px;
   color: #6b7280;
 }
@@ -19,9 +23,8 @@
   font-weight: 700;
   margin-bottom: 2px;
 }
-.section {
-  display: flex;
-  justify-content: space-between;
+.table {
+  width: 100%;
 }
 .tableRowHeader {
   display:grid;
@@ -36,7 +39,7 @@
   background-color: #F3F4F6;
   text-align: left;
 }
-.tableRowHeader div:nth-child(4) {
+.tableRowHeader th:nth-child(4) {
   text-align: right;
 }
 .tableBody {
@@ -53,7 +56,7 @@
   font-weight: 400;
   color: #6B7280;
 }
-.vipName {
+.vipNames {
   font-width: 500;
   color: #D97706;
 }

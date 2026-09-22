@@ -19,37 +19,65 @@ function App() {
 
   return (
     <div className="app">
-      <Header />
-      <section className="container">
-        <StatsGrid accounts={accounts} />
+      {/* 상단 헤더 */}
+      <header className="header">
+        <Header />
+      </header>
+
+      {/* 전체를 감싸는 컨테이너 */}
+      <div className="container">
+        {/* 1. 요약 통계 섹션 */}
+        <section className="statsSection">
+          <StatsGrid accounts={accounts} />
+        </section>
+
+        {/* 본문 컨텐츠 */}
         <main className="layout">
+          {/* 배치 왼쪽 */}
           <div className="leftCol">
-            <AccountForm accounts={accounts} setAccounts={setAccounts} />
-            <TransferForm
-              accounts={accounts}
-              setAccounts={setAccounts}
-              selectedAccountNo={selectedAccountNo}
-            />
-          </div>
-          <div className="rightCol">
-            {' '}
-            <AccountTable
-              accounts={accounts}
-              setAccounts={setAccounts}
-              selectedAccountNo={selectedAccountNo}
-              setSelectedAccountNo={setSelectedAccountNo}
-            />
-            <div className="bottomRow">
-              <HistoryList
+            {/* 2. 계좌 개설 섹션 */}
+            <section className="accountFormSection">
+              <AccountForm accounts={accounts} setAccounts={setAccounts} />
+            </section>
+            {/* 3. 입출금 섹션 */}
+            <section className="transferFormSection">
+              <TransferForm
                 accounts={accounts}
+                setAccounts={setAccounts}
                 selectedAccountNo={selectedAccountNo}
               />
-              <NotifyLog />
+            </section>
+          </div>
+
+          {/* 배치 오른쪽 */}
+          <div className="rightCol">
+            {/* 4. 생성된 전체 계좌 섹션 */}
+            <section className="accountTableSection">
+              <AccountTable
+                accounts={accounts}
+                setAccounts={setAccounts}
+                selectedAccountNo={selectedAccountNo}
+                setSelectedAccountNo={setSelectedAccountNo}
+              />
+            </section>
+            {/* 배치 하단쪽 */}
+            <div className="bottomRow">
+              {/* 5. 히스토리 영역 */}
+              <section className="historySection">
+                <HistoryList
+                  accounts={accounts}
+                  selectedAccountNo={selectedAccountNo}
+                />
+              </section>
+              {/* 6. 알림 로그 영역 */}
+              <section className="notifyLogSection">
+                <NotifyLog />
+              </section>
             </div>
           </div>
         </main>
-      </section>
-
+      </div>
+      {/* 모바일 전용 자리 */}
       {/*<BottomNav /> <FAB /> <BottomSheet />*/}
     </div>
   );
