@@ -1,6 +1,6 @@
-.accountTableSection {
-  width: 776px;
-  min-height: 398px;
+.container {
+  /*width: 776px;*/
+  /*min-height: 398px;*/
   background-color: white;
   border: 1px solid #e5e7eb;
   padding: 24px;
@@ -38,11 +38,13 @@
   color: #6b7280;
   background-color: #F3F4F6;
   text-align: left;
+  white-space: nowrap;
 }
 .tableRowHeader th:nth-child(4) {
   text-align: right;
 }
 .tableBody {
+  display: block;
   max-height: 235px;
   overflow-y: auto; /* 5개 이상 스크롤 처리 */
 }

@@ -65,7 +65,7 @@ export default function AccountTable({
   };
 
   return (
-    <section className={styles.accountTableSection}>
+    <div className={styles.container}>
       <div className={styles.headerSection}>
         <div className={styles.titleGroup}>
           <h2 className={styles.title}>전체 계좌</h2>
@@ -75,7 +75,6 @@ export default function AccountTable({
         </div>
         <div className={styles.buttonGroup}>
           <Button
-            // 화살표 처리 조건부로 렌더링 처리하기..
             label={sortLabels[isSorted]}
             variant="secondary"
             clickEvent={sortByBalanceHandler}
@@ -113,6 +112,6 @@ export default function AccountTable({
         </span>
         <span className={styles.vipNames}>VIP(100만↑): {vipNames}</span>
       </footer>
-    </section>
+    </div>
   );
 }

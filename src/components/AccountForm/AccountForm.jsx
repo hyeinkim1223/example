@@ -71,7 +71,7 @@ export default function AccountForm({ accounts, setAccounts }) {
   };
 
   return (
-    <section className={styles.accountFormSection}>
+    <div className={styles.container}>
       <header className={styles.headerSection}>
         <h2 className={styles.title}>계좌 개설</h2>
         <label className={styles.description}>문제 1·2 — createAccount()</label>
@@ -102,6 +102,6 @@ export default function AccountForm({ accounts, setAccounts }) {
         clickEvent={accountSubmitHandler}
       />
       {/* const props = {variant : "", clickEvent : ()=>{};}  */}
-    </section>
+    </div>
   );
 }

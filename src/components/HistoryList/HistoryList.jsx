@@ -64,7 +64,7 @@ export default function HistoryList({ accounts, selectedAccountNo }) {
   const totalWithdraw = getTotalAmountByType(filteredHistory(), 'withdraw');
 
   return (
-    <section className={styles.HistoryListSection}>
+    <div className={styles.container}>
       <header className={styles.headerSection}>
         <div className={styles.titleGroup}>
           <h2 className={styles.title}>거래내역</h2>
@@ -121,6 +121,6 @@ export default function HistoryList({ accounts, selectedAccountNo }) {
           {isRecentTwoOnly ? '전체보기' : '최근 2건 보기'}
         </button>
       </footer>
-    </section>
+    </div>
   );
 }

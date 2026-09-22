@@ -20,7 +20,7 @@ export default function StatsGrid({ accounts }) {
   };
 
   return (
-    <section className={styles.dashboardSection}>
+    <div className={styles.container}>
       <header className={styles.headerSection}>
         <h2 className={styles.title}>대시보드</h2>
         <label className={styles.description}>
@@ -51,6 +51,6 @@ export default function StatsGrid({ accounts }) {
           color={'gold'}
         />
       </div>
-    </section>
+    </div>
   );
 }

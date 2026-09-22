@@ -139,36 +139,57 @@ body {
   font-size: 1rem;
   color: #111827;
 }
-@media (min-width: 1024px) {
-  .layout {grid-template-columns: 400px; gap: 24px;}
-  .stats {grid-template-columns: repeat(4,1fr);}
-}
 .app {
-  max-width: 1440px;
-  min-height: 100vh;
   background-color: #f5f7fa;
-  margin: 0 auto;
-  box-sizing: border-box;
   padding-bottom: 50px;
 }
 .container {
-  padding: 0 120px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
 }
 .layout {
   display: grid;
-  gap: 24px;
-  grid-template-columns: 1fr 2fr;
+  gap: 16px;
+  grid-template-columns: 1fr;
   align-items: start;
 }
-.leftCol,.rightCol {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
+.layout > * { /* layout의 직계 자식 섹션 */
+  /* 브라우저 기본값 auto 를 덮어써서 내용물이 길어도,
+  부모 그리드가 줄어들면 0px 이 될 때 무조건 유연하게 따라 줄어듦 */
+  /*min-width: 370px;*/
 }
-.bottomRow {
-  display: flex;
-  gap: 24px;
+@media (min-width: 768px){
+  .statsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
-.bottomRow > * {
-  flex: 1;
+@media (min-width: 1024px) {
+  .layout {
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 24px;
+  }
+  .container {
+    padding: 0 120px;
+  }
+  .accountFormSection {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  .transferFormSection {
+    grid-column: 1;
+    grid-row: 2;
+  }
+  .accountTableSection {
+    grid-column: 2 / span 2;
+    grid-row: 1;
+  }
+  .historySection {
+    grid-column: 2;
+    grid-row: 2;
+  }
+  .notifyLogSection {
+    grid-column: 3;
+    grid-row: 2;
+  }
 }

@@ -1,15 +1,23 @@
-.headerSection {
-    width: 100%;
+.container {
     height: 64px;
     background-color: white;
     border-bottom: 1px solid #E5E7EB;
+    box-sizing: border-box;
+}
+.innerContainer {
+    max-width: 1200px;
+    height: 100%;
     display: flex;
     white-space: nowrap; /* flex 요소 때문에 줄어드는 현상을 막아줌 */
-    justify-content: left;
     gap: 42px;
     align-items: center;
-    box-sizing: border-box;
-    padding: 0 120px;
+    margin: 0 auto;
+    padding: 0 16px;
+}
+@media (min-width: 1024px) {
+    .innerContainer {
+        padding: 0 120px;
+    }
 }
 .section {
     display: flex;

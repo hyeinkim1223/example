@@ -14,6 +14,9 @@
 .statsGrid {
     margin: 24px 0;
     display: grid;
-    grid-template-columns: repeat(4,1fr);
+    grid-template-columns: repeat(2,1fr);
     gap: 24px;
+}
+@media (min-width: 1024px) {
+    .statsGrid {grid-template-columns: repeat(4,1fr);}
 }
