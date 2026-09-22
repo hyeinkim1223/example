@@ -7,19 +7,46 @@ import { useState } from 'react';
 
 export default function AccountTable({
   accounts,
-  setAccounts,
   accountNo,
   owner,
   selectedAccountNo,
   setSelectedAccountNo,
 }) {
-  // 유효성 검사 : 왜 필요하지..?
-  const isAllVaild =
+  // 잔액순 정렬하기 (계좌생성순 → 잔액높은순 → 잔액낮은순)
+  const [isSorted, setIsSorted] = useState('default'); // 기본 정렬값 default
+
+  // 기본 정렬이면 원본 유지, 정렬이 필요할 때만 얕은 복사([...]) 진행
+  let displayAccounts = accounts;
+
+  // 정렬 버튼 라벨명
+  const sortLabels = {
+    default: '↕ 계좌 개설순',
+    desc: '↑ 잔액 높은순',
+    asc: '↓ 잔액 낮은순',
+  };
+
+  // 정렬 상태명
+  const NEXT_SORT_STATE = {
+    default: 'desc',
+    desc: 'asc',
+    asc: 'default',
+  };
+
+  if (isSorted !== 'default') {
+    // 정렬 값이 desc 또는 asc 라면
+    displayAccounts = [...accounts].sort((a, b) =>
+      // 원본 보호를 위해 얕은 복사한 배열을 정렬: desc면 내림차순, 아니면 오름차순
+      isSorted === 'desc' ? b.balance - a.balance : a.balance - b.balance,
+    );
+  }
+
+  // 유효성 검사 1. 값을 null 로 둘 수 없음
+  const isAllValid =
     accounts.length > 0 && // 배열에 길이가 0보다 크고
     // every() : 배열 내 하나라도 만족하지 않으면 false
     accounts.every((account) => {
       // 계좌번호가 빈칸이 아니면 true, 예금주도 빈칸이 아니면 true
-      return accountNo !== '' && owner !== '';
+      return account.accountNo !== '' && account.owner !== '';
     });
 
   // VIP 대상자 걸러내기
@@ -31,38 +58,8 @@ export default function AccountTable({
     .map((account) => account.owner)
     .join(', ');
 
-  // 잔액순 정렬하기 (계좌생성순 → 잔액높은순 → 잔액낮은순)
-  const [isSorted, setIsSorted] = useState('default'); // 기본 정렬값 default
-  // 복사가 아님, 참조값 동일 → 사용하는 이유? 의미를 담은 변수명을 하나 더 만들기 위해서
-  let displayAccounts = accounts;
-
-  if (isSorted === 'desc') {
-    // 잔액 높은순 (desc)
-    displayAccounts = [...displayAccounts].sort(
-      (a, b) => b.balance - a.balance,
-    );
-  } else if (isSorted === 'asc') {
-    // 잔액 낮은순 (asc)
-    displayAccounts = [...displayAccounts].sort(
-      (a, b) => a.balance - b.balance,
-    );
-  }
-
-  const sortByBalanceHandler = () => {
-    if (isSorted === 'default') {
-      setIsSorted('desc');
-    } else if (isSorted === 'desc') {
-      setIsSorted('asc');
-    } else if (isSorted === 'asc') {
-      setIsSorted('default');
-    }
-  };
-
-  const sortLabels = {
-    default: '↕ 계좌 개설순',
-    desc: '↑ 잔액 높은순',
-    asc: '↓ 잔액 높은순',
-  };
+  // 정렬 버튼 핸들러
+  const sortByBalanceHandler = () => setIsSorted(NEXT_SORT_STATE[isSorted]);
 
   return (
     <div className={styles.container}>
@@ -108,7 +105,7 @@ export default function AccountTable({
 
       <footer className={styles.tableFooter}>
         <span className={styles.totalAccount}>
-          총 {accounts.length}개 계좌 · 모두 유효(every): {String(isAllVaild)}
+          총 {accounts.length}개 계좌 · 모두 유효(every): {String(isAllValid)}
         </span>
         <span className={styles.vipNames}>VIP(100만↑): {vipNames}</span>
       </footer>

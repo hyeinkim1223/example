@@ -10,16 +10,17 @@ export default function TransferForm({ accounts, setAccounts }) {
   const findAccount = (accounts, accountNo) =>
     accounts.find((account) => account.accountNo === accountNo);
 
-  const [accountNo, setAccountNo] = useState();
-  const [amount, setAmount] = useState();
+  const [accountNo, setAccountNo] = useState(); // 계좌번호 상태 변수
+  const [amount, setAmount] = useState(); // 금액 상태 변수
   const [toast, setToast] = useState({
+    // 토스트 상태 변수, 초기값 객체형
     isVisible: false,
     type: 'success',
     message: '',
   });
-  const { isVisible, type, message } = toast;
+  const { type, message } = toast;
 
-  // Toast를 닫는 핸들러 함수
+  // Toast 를 닫는 핸들러 함수
   const closeToastHandler = () => {
     // 이전값을 스프레드 연산자로 뿌려주고, 그중 isVisible 값만 false로 변경
     setToast((prev) => ({ ...prev, isVisible: false }));
@@ -41,9 +42,10 @@ export default function TransferForm({ accounts, setAccounts }) {
 
   // 입출금 기능 통합 핸들러
   const transactionHandler = (type) => {
-    const transactionAmount = Number(amount);
-    const findByAccountNo = findAccount(accounts, accountNo);
+    const transactionAmount = Number(amount); //
+    const findByAccountNo = findAccount(accounts, accountNo); // 일치한 계좌번호 변수에 담기
     const typeKor = type === 'deposit' ? '입금' : '출금';
+    const MAX_INIT_BALANCE = 10_000_000_000; // 최대 입/출금액 한도(100억) 상수 정의
 
     // 유효성 검사 1. 계좌번호 존재 여부
     if (findByAccountNo === undefined) {
@@ -54,7 +56,7 @@ export default function TransferForm({ accounts, setAccounts }) {
       });
       return;
     }
-    // 유효성 검사 2. 문자열 및 0 이상의 값
+    // 유효성 검사 2. 문자열 및 0 이하의 값
     if (transactionAmount <= 0 || isNaN(transactionAmount)) {
       setToast({
         isVisible: true,
@@ -73,8 +75,8 @@ export default function TransferForm({ accounts, setAccounts }) {
       return;
     }
 
-    // 유효성 검사 4. 100억 이상 입력시 입력 제한 및 alert 실행
-    if (amount > 10_000_000_000) {
+    // 유효성 검사 4. 100억 초과 입력시 입력 제한 및 alert 실행
+    if (amount > MAX_INIT_BALANCE) {
       setToast({
         isVisible: true,
         type: 'fail',
@@ -86,9 +88,6 @@ export default function TransferForm({ accounts, setAccounts }) {
     // 유효성 검사가 마치게 되면 accounts 변수의 상태값을 변경
     setAccounts((prev) => {
       // 현재 accounts 값을 prev로 전달해줌 (accounts 배열 전체)
-      // 계좌개설 입,출금은 하나의 계좌만 바뀜 find로 하고 setState 처리하는게 나음
-      // 왜냐면 예를들어 계좌가 많으면 무조건 앞에서부터 순회를 돌기때문에 로딩이 길어짐
-      // map -> find로 처리하기
       return prev.map((account) => {
         // type 값으로 계산로직 변경
         const newBalance =
@@ -125,6 +124,7 @@ export default function TransferForm({ accounts, setAccounts }) {
     setAmount('');
   };
 
+  // 토스트 노출 시 3초 후 자동 소멸 처리
   useEffect(() => {
     // isVisible 이 false 타이머 작동을 할 필요가 없음
     if (!toast.isVisible) return;
@@ -133,6 +133,7 @@ export default function TransferForm({ accounts, setAccounts }) {
       setToast((prev) => ({ ...prev, isVisible: false }));
     }, 3000);
 
+    // 컴포넌트 언마운트 또는 토스트 상태 변경 시 타이머 해제 (클린업 함수를 통한 메모리 누수 방지)
     return () => clearTimeout(timer);
   }, [toast.isVisible]); // [] 의존성 배열 안에 토스트가 보이는 유무에 따라 재실행
 
