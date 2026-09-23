@@ -1,37 +1,31 @@
 import styles from './HistoryList.module.css';
-import Button from '../Form/Button';
 import HistoryItem from './HistoryItem';
 import { useState } from 'react';
 
 export default function HistoryList({ accounts, selectedAccountNo }) {
+  // 최근 2건 보기 상태 변수
+  const [isRecentTwoOnly, setIsRecentTwoOnly] = useState(false);
+  // 탭메뉴 상태 변수
+  const [selectedTab, setSelectedTab] = useState('all');
+
   // accounts 전체 계좌 배열에서 선택한 계좌번호와 일치한 계좌 정보 조회
   // 방금 바뀐 setSelectedAccountNo 을 가지고 일치하는 계좌 1개를 꺼내옴!!
   const selectedAccount = accounts.find(
     (account) => account.accountNo === selectedAccountNo,
   );
 
-  // 최근 2건 보기 상태 변수
-  const [isRecentTwoOnly, setIsRecentTwoOnly] = useState(false);
-
-  // 탭메뉴 상태 변수
-  let [selectedTab, setSelectedTab] = useState('all');
-
   // 탭메뉴, 최근 2건 보기 통합 필터 기능
   const filteredHistory = () => {
-    // 선택된 계좌의 거래내역(history)의 배열 또는 빈 배열을 filterList에 할당
-    /* history 배열, 없을 시 [] 빈 배열로 처리
-    [{ type: 'deposit', amount: 30000, balance: 30000 },
-      { type: 'withdraw', amount: 10000, balance: 20000 }]
-     */
     let filteredList = selectedAccount?.history || [];
+    /* 선택된 계좌의 거래내역(history)의 배열 또는 빈 배열을 filterList에 할당
+      history 배열, 없을 시 [] 빈 배열로 처리
+      [{ type: 'deposit', amount: 30000, balance: 30000 },
+      { type: 'withdraw', amount: 10000, balance: 20000 }]
+    */
 
-    // 만약 선택한 탭이 all이 아니라면
-    if (selectedTab !== 'all') {
-      // filteredList 배열 안에 있는 type과 선택한 selectedTab 과 값이 일치하면 다시 filteredList에 덮어쓰기
-      filteredList = filteredList.filter(
-        (record) => record.type === selectedTab,
-      );
-    }
+    filteredList = filteredList.filter(
+      (record) => selectedTab === 'all' || record.type === selectedTab,
+    );
 
     // isRecentTwoOnly가 true인 경우 배열 뒤에서 2개만 배열에 담기
     // 그러나, 초기값이 false 니까 최근 2건 보기 처리가 되지않음.
@@ -40,9 +34,7 @@ export default function HistoryList({ accounts, selectedAccountNo }) {
     }
 
     // 원본 불변성 유지를 위해 복사본을 역순 정렬하여 최신순이 위로 올라오게
-    filteredList = [...filteredList].reverse();
-
-    return filteredList;
+    return [...filteredList].reverse();
   };
 
   // 입출금 타입별 총액 반환
@@ -69,8 +61,9 @@ export default function HistoryList({ accounts, selectedAccountNo }) {
         <div className={styles.titleGroup}>
           <h2 className={styles.title}>거래내역</h2>
           <label className={styles.description}>
-            {selectedAccount ? selectedAccount.owner : '이름'} ·{' '}
-            {selectedAccount ? selectedAccount.accountNo : '계좌번호'}
+            {/* ?. 옵셔널 체이닝 사용이유 : null 또는 undefined 면 Type Error 가 뜨기 때문에, undefined 면 이름이라고 나오게 */}
+            {selectedAccount?.owner || '이름'} ·{' '}
+            {selectedAccount?.accountNo || '계좌번호'}
           </label>
         </div>
         <div className={styles.filterTab}>

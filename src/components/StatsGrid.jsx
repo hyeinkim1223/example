@@ -19,6 +19,11 @@ export default function StatsGrid({ accounts }) {
     return amount;
   };
 
+  // VIP 걸러내기
+  const vipLen = accounts.filter(
+    (account) => account.balance >= 1000000,
+  ).length;
+
   return (
     <div className={styles.container}>
       <header className={styles.headerSection}>
@@ -46,7 +51,7 @@ export default function StatsGrid({ accounts }) {
         />
         <StatCard
           label={'VIP 계좌'}
-          value={`${accounts.filter((account) => account.balance >= 1000000).length}개`}
+          value={`${vipLen}개`}
           sub={'잔액 100만 원 이상'}
           color={'gold'}
         />
