@@ -29,3 +29,16 @@
     display: flex;
     gap: 12px;
 }
+.toastArea {
+    position: relative;
+    width: 100%;
+    height: 52px;
+    margin-top: 16px;
+}
+.toastArea > * {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    box-sizing: border-box;
+}

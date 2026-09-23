@@ -4,27 +4,52 @@ import Button from '../Form/Button';
 import Toast from '../Form/Toast';
 import { useEffect, useState } from 'react';
 
-// ({ accounts, setAccounts })는 구조분해 할당으로 가져온 값
 export default function TransferForm({ accounts, setAccounts }) {
+  const [accountNo, setAccountNo] = useState(''); // 계좌번호 상태 변수
+  const [amount, setAmount] = useState(''); // 금액 상태 변수
+  const [toasts, setToasts] = useState([]); // 토스트 상태 변수, 빈 배열 초기값
+
+  const TOAST_MESSAGES = {
+    INVALID_AMOUNT: {
+      type: 'error',
+      message: '0원 초과 입력, 문자는 입력할 수 없습니다.',
+    },
+    ACCOUNT_NOT_FOUND: {
+      type: 'error',
+      message: '존재하지 않는 계좌번호입니다.',
+    },
+    EXCEED_MAX: {
+      type: 'error',
+      message: '금액은 최대 100억 원까지만 가능합니다.',
+    },
+    INSUFFICIENT_BALANCE: { type: 'error', message: '출금 실패! 잔액 부족' },
+  };
+
+  // 토스트 추가 함수
+  // addToast(TOAST_MESSAGES.ACCOUNT_NOT_FOUND) 를 실행하면, id 를 추가하여 객체 생성 후
+  // 상태 변수에 배열에 추가
+  const addToast = (toastData) => {
+    const newToast = {
+      // 이 단계에서
+      // { id: , type: , message: } 값이 됨.
+      id: Date.now(),
+      ...toastData, // type과 message를 그대로 펼쳐서 복사
+    };
+    // 그 값을 배열에 추가
+    setToasts((prev) => [...prev, newToast]);
+  };
+
+  // 토스트 닫기 함수
+  // 지우고 싶은 고우 번호표(id)
+  const removeToast = (id) => {
+    // 현재 화면에 떠 있는 토스트 목록(prev 배열)을 꺼냄
+    // 배열 안에 있는 id 랑 입력한 id 가 다른 것들만 새배열로 만들어라.
+    setToasts((prev) => prev.filter((t) => t.id !== id));
+  };
+
   // accounts 배열 계좌번호와 입력한 계좌번호의 일치 여부 함수
   const findAccount = (accounts, accountNo) =>
     accounts.find((account) => account.accountNo === accountNo);
-
-  const [accountNo, setAccountNo] = useState(); // 계좌번호 상태 변수
-  const [amount, setAmount] = useState(); // 금액 상태 변수
-  const [toast, setToast] = useState({
-    // 토스트 상태 변수, 초기값 객체형
-    isVisible: false,
-    type: 'success',
-    message: '',
-  });
-  const { type, message } = toast;
-
-  // Toast 를 닫는 핸들러 함수
-  const closeToastHandler = () => {
-    // 이전값을 스프레드 연산자로 뿌려주고, 그중 isVisible 값만 false로 변경
-    setToast((prev) => ({ ...prev, isVisible: false }));
-  };
 
   // 계좌번호 입력값 변경 핸들러
   const accountNoChangeHandler =
@@ -49,39 +74,25 @@ export default function TransferForm({ accounts, setAccounts }) {
 
     // 유효성 검사 1. 계좌번호 존재 여부
     if (findByAccountNo === undefined) {
-      setToast({
-        isVisible: true,
-        type: 'fail',
-        message: '존재하지 않는 계좌번호 입니다.',
-      });
+      addToast(TOAST_MESSAGES.ACCOUNT_NOT_FOUND);
       return;
     }
     // 유효성 검사 2. 문자열 및 0 이하의 값
     if (transactionAmount <= 0 || isNaN(transactionAmount)) {
-      setToast({
-        isVisible: true,
-        type: 'fail',
-        message: '0원 이상 입력, 문자열은 입력할 수 없습니다',
-      });
+      addToast(TOAST_MESSAGES.INVALID_AMOUNT);
       return;
     }
     // 유효성 검사 3. type 이 withdraw(출금) 이면서, 입력값이 더 큰 경우
     if (type === 'withdraw' && transactionAmount > findByAccountNo.balance) {
-      setToast({
-        isVisible: true,
-        type: 'fail',
+      addToast({
+        type: 'error',
         message: `출금 실패! 잔액 부족 (현재 ${findByAccountNo.balance.toLocaleString()}원)`,
       });
       return;
     }
-
     // 유효성 검사 4. 100억 초과 입력시 입력 제한 및 alert 실행
     if (amount > MAX_INIT_BALANCE) {
-      setToast({
-        isVisible: true,
-        type: 'fail',
-        message: `금액은 최대 100억 원까지만 가능합니다.`,
-      });
+      addToast(TOAST_MESSAGES.EXCEED_MAX);
       return;
     }
 
@@ -115,27 +126,13 @@ export default function TransferForm({ accounts, setAccounts }) {
         return account; // 입금 대상 계좌가 아니면(=원본과 다른 참조면) 변경 없이 그대로 리턴
       });
     });
-    setToast({
-      isVisible: true,
+    addToast({
       type: 'success',
       message: `${typeKor} 성공! 현재 잔액이 반영되었습니다.`,
     });
     setAccountNo('');
     setAmount('');
   };
-
-  // 토스트 노출 시 3초 후 자동 소멸 처리
-  useEffect(() => {
-    // isVisible 이 false 타이머 작동을 할 필요가 없음
-    if (!toast.isVisible) return;
-
-    const timer = setTimeout(() => {
-      setToast((prev) => ({ ...prev, isVisible: false }));
-    }, 3000);
-
-    // 컴포넌트 언마운트 또는 토스트 상태 변경 시 타이머 해제 (클린업 함수를 통한 메모리 누수 방지)
-    return () => clearTimeout(timer);
-  }, [toast.isVisible]); // [] 의존성 배열 안에 토스트가 보이는 유무에 따라 재실행
 
   return (
     <section className={styles.transferFormSection}>
@@ -166,12 +163,14 @@ export default function TransferForm({ accounts, setAccounts }) {
         />
       </div>
       <div className={styles.toastArea}>
-        <Toast
-          isVisible={toast.isVisible}
-          message={message}
-          type={type}
-          onClose={closeToastHandler}
-        />
+        {toasts.map((item) => (
+          <Toast
+            key={item.id}
+            message={item.message}
+            type={item.type}
+            onClose={() => removeToast(item.id)}
+          />
+        ))}
       </div>
     </section>
   );
