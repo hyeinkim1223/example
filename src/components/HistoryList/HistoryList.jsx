@@ -15,13 +15,15 @@ export default function HistoryList({ accounts, selectedAccountNo }) {
   );
 
   // 탭메뉴, 최근 2건 보기 통합 필터 기능
+  /**
+   * 선택된 계좌의 거래내역(history)의 배열 또는 빈 배열을 filterList에 할당
+   * history 배열, 없을 시 [] 빈 배열로 처리
+   * [{ type: 'deposit', amount: 30000, balance: 30000 },
+   * { type: 'withdraw', amount: 10000, balance: 20000 }]
+   * @returns {T[]}
+   */
   const filteredHistory = () => {
     let filteredList = selectedAccount?.history || [];
-    /* 선택된 계좌의 거래내역(history)의 배열 또는 빈 배열을 filterList에 할당
-      history 배열, 없을 시 [] 빈 배열로 처리
-      [{ type: 'deposit', amount: 30000, balance: 30000 },
-      { type: 'withdraw', amount: 10000, balance: 20000 }]
-    */
 
     filteredList = filteredList.filter(
       (record) => selectedTab === 'all' || record.type === selectedTab,
