@@ -22,7 +22,10 @@ export default function TransferForm({ accounts, setAccounts }) {
       type: 'error',
       message: '금액은 최대 100억 원까지만 가능합니다.',
     },
-    INSUFFICIENT_BALANCE: { type: 'error', message: '출금 실패! 잔액 부족' },
+    INSUFFICIENT_BALANCE: {
+      type: 'error',
+      message: '출금 실패! 잔액 부족',
+    },
   };
 
   // 토스트 추가 함수
@@ -35,6 +38,7 @@ export default function TransferForm({ accounts, setAccounts }) {
       id: Date.now(),
       ...toastData, // type과 message를 그대로 펼쳐서 복사
     };
+
     // 그 값을 배열에 추가
     setToasts((prev) => [...prev, newToast]);
   };
@@ -135,7 +139,7 @@ export default function TransferForm({ accounts, setAccounts }) {
   };
 
   return (
-    <section className={styles.transferFormSection}>
+    <div className={styles.container}>
       <div className={styles.headerSection}>
         <div className={styles.title}>입금 · 출금</div>
         <label className={styles.description}>
@@ -172,6 +176,6 @@ export default function TransferForm({ accounts, setAccounts }) {
           />
         ))}
       </div>
-    </section>
+    </div>
   );
 }
