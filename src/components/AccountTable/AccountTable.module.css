@@ -28,7 +28,8 @@
 }
 .tableRowHeader {
   display:grid;
-  grid-template-columns: 40px 140px 1fr 160px 90px 80px;
+  /*grid-template-columns: 40px 140px 1fr 160px 90px 80px;*/
+  grid-template-columns: 1fr 2fr 1fr 3fr 1fr 1fr;
   gap: 12px;
   border-radius: 8px 8px 0 0;
   padding: 10px 16px;
